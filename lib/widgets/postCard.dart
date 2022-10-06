@@ -5,6 +5,7 @@ import 'package:instagram_clone/providers/user_provider.dart';
 import 'package:instagram_clone/resources/firestore_methods.dart';
 import 'package:instagram_clone/screens/comments_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
+import 'package:instagram_clone/utils/dimensions.dart';
 import 'package:instagram_clone/utils/utils.dart';
 import 'package:instagram_clone/widgets/like_animations.dart';
 import 'package:intl/intl.dart';
@@ -43,7 +44,14 @@ class _PostCardState extends State<PostCard> {
   Widget build(BuildContext context) {
     final User user = Provider.of<UserProvider>(context, listen: false).getUser;
     return Container(
-      color: mobileBackgroundColor,
+      decoration: MediaQuery.of(context).size.width > webdim
+          ? BoxDecoration(
+              border: Border.all(color: secondaryColor),
+              color: webBackgroundColor,
+            )
+          : BoxDecoration(
+              color: mobileBackgroundColor,
+            ),
       padding: EdgeInsets.symmetric(
         vertical: 10,
       ),
@@ -135,7 +143,7 @@ class _PostCardState extends State<PostCard> {
                 width: double.infinity,
                 child: Image.network(
                   widget.snap['postUrl'],
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fitHeight,
                 ),
               ),
               AnimatedOpacity(

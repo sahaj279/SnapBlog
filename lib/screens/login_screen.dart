@@ -7,6 +7,7 @@ import 'package:instagram_clone/responsive/responsive_layout.dart';
 import 'package:instagram_clone/responsive/webView.dart';
 import 'package:instagram_clone/screens/sign_up_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
+import 'package:instagram_clone/utils/dimensions.dart';
 import 'package:instagram_clone/utils/utils.dart';
 import 'package:instagram_clone/widgets/text_field_input.dart';
 
@@ -33,8 +34,11 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.symmetric(
-              horizontal: 27), //to have sone space on sides
+          padding: MediaQuery.of(context).size.width > webdim
+              ? EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width / 3)
+              : EdgeInsets.symmetric(
+                  horizontal: 27), //to have sone space on sides
           width: double.infinity, //as we want it to stretch
 
           child: Column(

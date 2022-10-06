@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:instagram_clone/screens/profileScreen.dart';
 import 'package:instagram_clone/utils/colors.dart';
+import 'package:instagram_clone/utils/dimensions.dart';
 import 'package:instagram_clone/widgets/list-card.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -102,12 +103,19 @@ class _SearchScreenState extends State<SearchScreen> {
                     mainAxisSpacing: 4,
                     crossAxisSpacing: 4,
                     repeatPattern: QuiltedGridRepeatPattern.inverted,
-                    pattern: [
-                      QuiltedGridTile(2, 2),
-                      QuiltedGridTile(1, 1),
-                      QuiltedGridTile(1, 1),
-                      // QuiltedGridTile(1, 2),
-                    ],
+                    pattern: MediaQuery.of(context).size.width > webdim
+                        ? [
+                            QuiltedGridTile(1, 1),
+                            QuiltedGridTile(1, 1),
+                            QuiltedGridTile(1, 1),
+                            // QuiltedGridTile(1, 2),
+                          ]
+                        : [
+                            QuiltedGridTile(2, 2),
+                            QuiltedGridTile(1, 1),
+                            QuiltedGridTile(1, 1),
+                            // QuiltedGridTile(1, 2),
+                          ],
                   ),
                   childrenDelegate: SliverChildBuilderDelegate(
                     (context, index) => Image.network(
