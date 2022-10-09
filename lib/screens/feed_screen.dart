@@ -23,14 +23,14 @@ class FeedScreen extends StatelessWidget {
                   color: Colors.white,
                   height: 32,
                 ),
-                actions: [
-                  IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.messenger_outline,
-                        color: Colors.white,
-                      ))
-                ],
+                // actions: [
+                //   IconButton(
+                //       onPressed: () {},
+                //       icon: Icon(
+                //         Icons.messenger_outline,
+                //         color: Colors.white,
+                //       ))
+                // ],
               ),
         body: StreamBuilder(
           stream: FirebaseFirestore.instance

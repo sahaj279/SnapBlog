@@ -24,10 +24,10 @@ class ListCard extends StatelessWidget {
                   snap['username'],
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text(
-                  'following',
-                  // style: TextStyle(fontWeight: FontWeight.bold),
-                ),
+                // Text(
+                //   'following',
+                //   // style: TextStyle(fontWeight: FontWeight.bold),
+                // ),
               ],
             ),
           )

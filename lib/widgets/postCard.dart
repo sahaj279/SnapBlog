@@ -4,6 +4,7 @@ import 'package:instagram_clone/models/user_model.dart';
 import 'package:instagram_clone/providers/user_provider.dart';
 import 'package:instagram_clone/resources/firestore_methods.dart';
 import 'package:instagram_clone/screens/comments_screen.dart';
+import 'package:instagram_clone/screens/profileScreen.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/utils/dimensions.dart';
 import 'package:instagram_clone/utils/utils.dart';
@@ -75,11 +76,20 @@ class _PostCardState extends State<PostCard> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          widget.snap['username'],
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProfileScreen(
+                                        uid: widget.snap['uid'])));
+                          },
+                          child: Text(
+                            widget.snap['username'],
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       )
@@ -209,26 +219,26 @@ class _PostCardState extends State<PostCard> {
                 ),
                 padding: EdgeInsets.all(0),
               ),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.send,
-                  color: Colors.grey,
-                  // size: 24,
-                ),
-                padding: EdgeInsets.all(0),
-              ),
-              Expanded(
-                  child: Align(
-                alignment: Alignment.centerRight,
-                child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.bookmark_border_outlined,
-                    color: primaryColor,
-                  ),
-                ),
-              ))
+              // IconButton(
+              //   onPressed: () {},
+              //   icon: Icon(
+              //     Icons.send,
+              //     color: Colors.grey,
+              //     // size: 24,
+              //   ),
+              //   padding: EdgeInsets.all(0),
+              // ),
+              // Expanded(
+              //     child: Align(
+              //   alignment: Alignment.centerRight,
+              //   child: IconButton(
+              //     onPressed: () {},
+              //     icon: Icon(
+              //       Icons.bookmark_border_outlined,
+              //       color: primaryColor,
+              //     ),
+              //   ),
+              // ))
             ],
           ),
 
@@ -272,7 +282,12 @@ class _PostCardState extends State<PostCard> {
 
                 //now a view more comments option
                 InkWell(
-                  onTap: () {}, //to show the all comments screen
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CommentsScreen(
+                                postId: widget.snap['postId'],
+                              ))), //to show the all comments screen
                   child: Container(
                     padding: EdgeInsets.only(bottom: 4),
                     child: Text(

@@ -74,7 +74,8 @@ class _CommentsScreenState extends State<CommentsScreen> {
                   child: TextField(
                     controller: _commentController,
                     decoration: InputDecoration(
-                      hintText: 'Comment as ${user.username}',
+                      hintText:
+                          'Comment as ${(user.username.length > 5) ? user.username.substring(0, 5) + ".. " : user.username}',
                       border: InputBorder.none,
                     ),
                   ),

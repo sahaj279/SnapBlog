@@ -31,16 +31,22 @@ class _CommentCardState extends State<CommentCard> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              RichText(
-                text:
-                    TextSpan(style: TextStyle(color: primaryColor), children: [
-                  TextSpan(
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                      text: widget.snap['username']),
-                  TextSpan(text: ' ${widget.snap['comment']}'),
-                ]),
+              Container(
+                width: MediaQuery.of(context).size.width / 1.75,
+                child: RichText(
+                  text: TextSpan(
+                      style: TextStyle(color: primaryColor),
+                      children: [
+                        TextSpan(
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                            text: widget.snap['username']),
+                        TextSpan(
+                          text: ' ${widget.snap['comment']}',
+                        ),
+                      ]),
+                ),
               ),
               Padding(
                 padding: EdgeInsets.only(top: 4),
@@ -53,15 +59,15 @@ class _CommentCardState extends State<CommentCard> {
               )
             ],
           ),
-          Expanded(
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.favorite),
-              ),
-            ),
-          )
+          // Expanded(
+          //   child: Align(
+          //     alignment: Alignment.centerRight,
+          //     child: IconButton(
+          //       onPressed: () {},
+          //       icon: Icon(Icons.favorite),
+          //     ),
+          //   ),
+          // )
         ],
       ),
     );

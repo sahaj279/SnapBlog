@@ -15,7 +15,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
         title: Text(
-          'Activity',
+          'Notifications',
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
