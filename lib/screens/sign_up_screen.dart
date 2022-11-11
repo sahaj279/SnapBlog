@@ -59,17 +59,17 @@ class _LoginScreenState extends State<SignUpScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Flexible(
-                child:
-                    Container(), //to have a flexible space on top which will reduce if content below it increases
-                flex: 2,
-              ),
+              // Flexible(
+              //   child:
+              //       Container(), //to have a flexible space on top which will reduce if content below it increases
+              //   flex: 1,
+              // ),
               Container(
-                padding: EdgeInsets.only(bottom: 44),
+                // padding: EdgeInsets.only(bottom: 44),
                 child: SvgPicture.asset(
-                  "assets/ic_instagram.svg",
+                  "assets/mas.svg",
                   color: Colors.white,
-                  height: 64,
+                  height: 200,
                 ),
               ),
               //circular widget to take a photo from device and stare as dp
@@ -99,7 +99,7 @@ class _LoginScreenState extends State<SignUpScreen> {
                 ],
               ),
               const SizedBox(
-                height: 30,
+                height: 20,
               ),
               TextFieldInpuut(
                 textEditingController: _usernameController,
@@ -107,7 +107,7 @@ class _LoginScreenState extends State<SignUpScreen> {
                 textInputType: TextInputType.text,
               ),
               const SizedBox(
-                height: 24,
+                height: 16,
               ), //username
               TextFieldInpuut(
                 textEditingController: _emailController,
@@ -115,7 +115,7 @@ class _LoginScreenState extends State<SignUpScreen> {
                 textInputType: TextInputType.emailAddress,
               ), //email
               const SizedBox(
-                height: 24,
+                height: 16,
               ),
               TextFieldInpuut(
                 textEditingController: _passController,
@@ -124,7 +124,7 @@ class _LoginScreenState extends State<SignUpScreen> {
                 isPass: true,
               ),
               const SizedBox(
-                height: 24,
+                height: 16,
               ),
               TextFieldInpuut(
                 textEditingController: _bioController,
@@ -132,7 +132,7 @@ class _LoginScreenState extends State<SignUpScreen> {
                 textInputType: TextInputType.text,
               ),
               const SizedBox(
-                height: 24,
+                height: 16,
               ), //bio
               InkWell(
                 onTap: () async {
@@ -183,12 +183,12 @@ class _LoginScreenState extends State<SignUpScreen> {
                 ),
               ),
               const SizedBox(
-                height: 24,
+                height: 16,
               ),
               Flexible(
                 child:
                     Container(), //to have a flexible space on top which will reduce if content below it increases
-                flex: 2,
+                flex: 1,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

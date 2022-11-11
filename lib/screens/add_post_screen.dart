@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone/models/user_model.dart';
@@ -103,22 +104,46 @@ class _AddPostScreenState extends State<AddPostScreen> {
   Widget build(BuildContext context) {
     final User user = Provider.of<UserProvider>(context).getUser;
     return (_file == null)
-        ? Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  icon: Icon(
-                    Icons.upload,
-                    size: 30,
+        ? Scaffold(
+            backgroundColor: Colors.transparent,
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
+                    child: Container(),
+                    flex: 1,
                   ),
-                  onPressed: () => _selectImage(context),
-                ),
-                // Text('Post your photo',
-                //     style: TextStyle(
-                //       fontSize: 25,
-                //     ))
-              ],
+                  IconButton(
+                    icon: Icon(
+                      Icons.upload,
+                      size: 35,
+                    ),
+                    onPressed: () => _selectImage(context),
+                  ),
+                  // SizedBox(
+                  //   height: 100,
+                  // ),
+                  Flexible(
+                    child: Container(),
+                    flex: 1,
+                  ),
+                  Container(
+                    child: Text(
+                      'Click a picture and share your \nMASALA\n with everyone!! ',
+                      style: TextStyle(
+                        fontSize: 23,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+
+                    // alignment: Alignment.bottomCenter,
+                  ),
+                  SizedBox(
+                    height: 80,
+                  )
+                ],
+              ),
             ),
           )
         : Scaffold(
@@ -156,7 +181,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CircleAvatar(
-                      backgroundImage: NetworkImage(user.photourl),
+                      backgroundImage:
+                          CachedNetworkImageProvider(user.photourl),
+                      // NetworkImage(user.photourl),
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.45,

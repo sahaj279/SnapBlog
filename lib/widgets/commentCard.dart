@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/models/user_model.dart';
 import 'package:instagram_clone/providers/user_provider.dart';
@@ -24,7 +25,9 @@ class _CommentCardState extends State<CommentCard> {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: CircleAvatar(
               radius: 18,
-              backgroundImage: NetworkImage(widget.snap['profileImage']),
+              backgroundImage:
+                  CachedNetworkImageProvider(widget.snap['profileImage']),
+              // NetworkImage(widget.snap['profileImage']),
             ),
           ),
           Column(

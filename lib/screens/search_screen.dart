@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:instagram_clone/screens/profileScreen.dart';
+import 'package:instagram_clone/screens/single_post_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/utils/dimensions.dart';
 import 'package:instagram_clone/widgets/list-card.dart';
@@ -118,10 +120,27 @@ class _SearchScreenState extends State<SearchScreen> {
                           ],
                   ),
                   childrenDelegate: SliverChildBuilderDelegate(
-                    (context, index) => Image.network(
-                      (snapshot.data! as dynamic).docs[index]['postUrl'],
-                      fit: BoxFit.fill,
+                    (context, index) => InkWell(
+                      onTap: () {
+                        print((snapshot.data! as dynamic).docs[index].data());
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return SinglePostCard(
+                              snap: (snapshot.data! as dynamic)
+                                  .docs[index]
+                                  .data());
+                        }));
+                      },
+                      child: CachedNetworkImage(
+                        imageUrl: (snapshot.data! as dynamic).docs[index]
+                            ['postUrl'],
+                        fit: BoxFit.fill,
+                      ),
                     ),
+                    //     Image.network(
+                    //   (snapshot.data! as dynamic).docs[index]['postUrl'],
+                    //   fit: BoxFit.fill,
+                    // ),
                     childCount: (snapshot.data! as dynamic).docs.length,
                   ),
                 );

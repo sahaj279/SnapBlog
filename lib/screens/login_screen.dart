@@ -47,15 +47,12 @@ class _LoginScreenState extends State<LoginScreen> {
               Flexible(
                 child:
                     Container(), //to have a flexible space on top which will reduce if content below it increases
-                flex: 2,
+                flex: 1,
               ),
-              Container(
-                padding: EdgeInsets.only(bottom: 64),
-                child: SvgPicture.asset(
-                  "assets/ic_instagram.svg",
-                  color: Colors.white,
-                  height: 64,
-                ),
+              SvgPicture.asset(
+                "assets/mas.svg",
+                color: Colors.white,
+                height: 200,
               ),
               TextFieldInpuut(
                   textEditingController: _emailController,

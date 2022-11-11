@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ListCard extends StatelessWidget {
@@ -11,7 +12,8 @@ class ListCard extends StatelessWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundImage: NetworkImage(snap['photourl']),
+            backgroundImage: CachedNetworkImageProvider(snap['photourl']),
+            // NetworkImage(snap['photourl']),
             radius: 32,
           ),
           Padding(

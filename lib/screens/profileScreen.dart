@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/resources/auth_methods.dart';
 import 'package:instagram_clone/resources/firestore_methods.dart';
 import 'package:instagram_clone/screens/login_screen.dart';
+import 'package:instagram_clone/screens/single_post_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/utils/utils.dart';
 
@@ -93,8 +95,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 const EdgeInsets.only(right: 16.0, left: 8),
                             child: CircleAvatar(
                               radius: 48,
-                              backgroundImage:
-                                  NetworkImage(userData['photourl']),
+                              backgroundImage: CachedNetworkImageProvider(
+                                  userData['photourl']),
+                              // NetworkImage(userData['photourl']),
                               backgroundColor: Colors.grey,
                             ),
                           ),
@@ -198,9 +201,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       itemBuilder: (context, index) {
                         DocumentSnapshot snap =
                             (snapshot.data! as dynamic).docs[index];
-                        return Container(
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return SinglePostCard(
+                                  snap: (snapshot.data! as dynamic)
+                                      .docs[index]
+                                      .data());
+                            }));
+                          },
                           child: Image(
-                            image: NetworkImage(snap['postUrl']),
+                            image: CachedNetworkImageProvider(snap['postUrl']),
+                            // NetworkImage(snap['postUrl']),
                             fit: BoxFit.cover,
                           ),
                         );

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/models/user_model.dart';
@@ -66,7 +67,9 @@ class _PostCardState extends State<PostCard> {
               children: [
                 CircleAvatar(
                   radius: 16,
-                  backgroundImage: NetworkImage(widget.snap['profileImage']),
+                  backgroundImage:
+                      CachedNetworkImageProvider(widget.snap['profileImage']),
+                  // NetworkImage(widget.snap['profileImage']),
                 ),
                 Expanded(
                   child: Column(
@@ -149,19 +152,23 @@ class _PostCardState extends State<PostCard> {
             },
             child: Stack(alignment: Alignment.center, children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.5,
-                width: double.infinity,
-                child: Image.network(
-                  widget.snap['postUrl'],
-                  fit: BoxFit.fitHeight,
-                ),
-              ),
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  width: double.infinity,
+                  child: Image(
+                    image:
+                        CachedNetworkImageProvider(widget.snap['profileImage']),
+                  )
+                  // Image.network(
+                  //   widget.snap['postUrl'],
+                  //   fit: BoxFit.fitHeight,
+                  // ),
+                  ),
               AnimatedOpacity(
                 duration: Duration(milliseconds: 200),
                 opacity: isLikeAnimating ? 1 : 0,
                 child: LikeAnimation(
                   child: Icon(
-                    Icons.favorite,
+                    Icons.local_fire_department,
                     color: Colors.white,
                     size: 120,
                   ),
@@ -193,13 +200,14 @@ class _PostCardState extends State<PostCard> {
                   },
                   icon: widget.snap['likes'].contains(user.uid)
                       ? Icon(
-                          Icons.favorite,
-                          color: Colors.red,
-                          // size: 24,
+                          Icons.local_fire_department_sharp,
+                          color: Colors.deepOrange,
+                          size: 28,
                         )
                       : Icon(
-                          Icons.favorite_border_outlined,
+                          Icons.local_fire_department_outlined,
                           color: Colors.grey,
+                          size: 28,
                         ),
                   padding: EdgeInsets.all(0),
                 ),

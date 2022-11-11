@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -92,6 +93,17 @@ class FirestoreMethods {
           'followers': FieldValue.arrayUnion([uid])
         });
       }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  //i want to get lisst of users which current user follows and then all the posts that these user have posted
+//get list of followers
+  Future<List?> getFollowings(String uid) async {
+    try {
+      var snapshot = await _firestore.collection('users').doc(uid).get();
+      return snapshot.data()!['following'];
     } catch (e) {
       print(e);
     }

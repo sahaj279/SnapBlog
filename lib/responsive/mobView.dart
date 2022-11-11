@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -46,20 +47,21 @@ class _MobViewState extends State<MobView> {
 
   @override
   Widget build(BuildContext context) {
-    // model.User user = Provider.of<UserProvider>(context).getUser;
+    model.User user = Provider.of<UserProvider>(context).getUser;
     // print(user
     //     .username); //when refresh user is called in responsive layout,it takes time ,till then we get error and after that we get the name
     // var s = user.username;
 
     return SafeArea(
       child: Scaffold(
+        extendBody: true,
         backgroundColor: mobileBackgroundColor,
         body: PageView(
           children: [
             FeedScreen(),
             SearchScreen(),
             AddPostScreen(),
-            ActivityScreen(),
+            // ActivityScreen(),
             ProfileScreen(
               uid: FirebaseAuth.instance.currentUser!.uid,
             ),
@@ -68,39 +70,63 @@ class _MobViewState extends State<MobView> {
           onPageChanged: onPageChanged,
           physics: NeverScrollableScrollPhysics(),
         ),
-        bottomNavigationBar: CupertinoTabBar(
-          backgroundColor: mobileBackgroundColor,
+
+        bottomNavigationBar: CurvedNavigationBar(
           items: [
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                  color: _page == 0 ? primaryColor : secondaryColor,
-                ),
-                label: '',
-                backgroundColor: primaryColor),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.search,
-                    color: _page == 1 ? primaryColor : secondaryColor),
-                label: '',
-                backgroundColor: primaryColor),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.add_circle,
-                    color: _page == 2 ? primaryColor : secondaryColor),
-                label: '',
-                backgroundColor: primaryColor),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.favorite,
-                    color: _page == 3 ? primaryColor : secondaryColor),
-                label: '',
-                backgroundColor: primaryColor),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.person,
-                    color: _page == 4 ? primaryColor : secondaryColor),
-                label: '',
-                backgroundColor: primaryColor),
+            Icon(
+              Icons.home,
+              color: _page == 0 ? Colors.black : primaryColor,
+            ),
+            Icon(Icons.search,
+                color: _page == 1 ? Color(0xff3406b3) : primaryColor),
+            Icon(Icons.add_circle,
+                color: _page == 2 ? Color(0xffB20600) : primaryColor),
+            // Icon(Icons.favorite,
+            //     color: _page == 3 ? Colors.black : primaryColor),
+            Icon(Icons.person,
+                color: _page == 3 ? mobileSearchColor : primaryColor),
           ],
           onTap: navigationTapped,
+          backgroundColor: Colors.transparent,
+          height: 60,
+          color: mobileBackgroundColor,
+          buttonBackgroundColor: Color(0xffF1F1E6),
+          animationCurve: Curves.easeInOut,
+          animationDuration: Duration(milliseconds: 300),
         ),
+        // bottomNavigationBar: CupertinoTabBar(
+        //   backgroundColor: mobileBackgroundColor,
+        //   items: [
+        //     BottomNavigationBarItem(
+        //         icon: Icon(
+        //           Icons.home,
+        //           color: _page == 0 ? primaryColor : secondaryColor,
+        //         ),
+        //         label: '',
+        //         backgroundColor: primaryColor),
+        //     BottomNavigationBarItem(
+        //         icon: Icon(Icons.search,
+        //             color: _page == 1 ? primaryColor : secondaryColor),
+        //         label: '',
+        //         backgroundColor: primaryColor),
+        //     BottomNavigationBarItem(
+        //         icon: Icon(Icons.add_circle,
+        //             color: _page == 2 ? primaryColor : secondaryColor),
+        //         label: '',
+        //         backgroundColor: primaryColor),
+        //     BottomNavigationBarItem(
+        //         icon: Icon(Icons.favorite,
+        //             color: _page == 3 ? primaryColor : secondaryColor),
+        //         label: '',
+        //         backgroundColor: primaryColor),
+        //     BottomNavigationBarItem(
+        //         icon: Icon(Icons.person,
+        //             color: _page == 4 ? primaryColor : secondaryColor),
+        //         label: '',
+        //         backgroundColor: primaryColor),
+        //   ],
+        //   onTap: navigationTapped,
+        // ),
       ),
     );
   }
