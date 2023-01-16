@@ -1,14 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:instagram_clone/providers/user_provider.dart';
 import 'package:instagram_clone/screens/Activity-screen.dart';
 import 'package:instagram_clone/screens/add_post_screen.dart';
 import 'package:instagram_clone/screens/feed_screen.dart';
 import 'package:instagram_clone/screens/profileScreen.dart';
 import 'package:instagram_clone/screens/search_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
-import 'package:provider/provider.dart';
 
 class WebView extends StatefulWidget {
   const WebView({Key? key}) : super(key: key);
@@ -48,15 +45,11 @@ class _WebViewState extends State<WebView> {
 
   @override
   Widget build(BuildContext context) {
-    var user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: webBackgroundColor,
-        title: SvgPicture.asset(
-          'assets/ic_instagram.svg',
-          color: Colors.white,
-          height: 32,
-        ),
+        title:const Text('I-Masala',style:TextStyle(color: Colors.white,fontSize: 40,fontStyle: FontStyle.italic)),
+              
         actions: [
           IconButton(
             onPressed: () => navigationTapped(0),
@@ -79,36 +72,36 @@ class _WebViewState extends State<WebView> {
               color: _page == 2 ? primaryColor : secondaryColor,
             ),
           ),
-          IconButton(
-            onPressed: () => navigationTapped(3),
-            icon: Icon(
-              Icons.notifications,
-              color: _page == 3 ? primaryColor : secondaryColor,
-            ),
-          ),
+          // IconButton(
+          //   onPressed: () => navigationTapped(3),
+          //   icon: Icon(
+          //     Icons.notifications,
+          //     color: _page == 3 ? primaryColor : secondaryColor,
+          //   ),
+          // ),
           IconButton(
             onPressed: () => navigationTapped(4),
             icon: Icon(
               Icons.person,
-              color: _page == 4 ? primaryColor : secondaryColor,
+              color: _page == 3 ? primaryColor : secondaryColor,
             ),
           ),
         ],
       ),
       backgroundColor: webBackgroundColor,
       body: PageView(
+        controller: pageController,
+        onPageChanged: onPageChanged,
+        physics:const NeverScrollableScrollPhysics(),
         children: [
-          FeedScreen(),
-          SearchScreen(),
-          AddPostScreen(),
-          ActivityScreen(),
+        const  FeedScreen(),
+        const  SearchScreen(),
+        const  AddPostScreen(),
+        const  ActivityScreen(),
           ProfileScreen(
             uid: FirebaseAuth.instance.currentUser!.uid,
           ),
         ],
-        controller: pageController,
-        onPageChanged: onPageChanged,
-        physics: NeverScrollableScrollPhysics(),
       ),
     );
   }

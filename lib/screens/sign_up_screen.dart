@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
 import 'package:instagram_clone/responsive/mobView.dart';
 import 'package:instagram_clone/responsive/responsive_layout.dart';
 import 'package:instagram_clone/responsive/webView.dart';
@@ -6,7 +7,6 @@ import 'package:instagram_clone/screens/login_screen.dart';
 import 'package:instagram_clone/utils/dimensions.dart';
 import 'package:instagram_clone/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone/resources/auth_methods.dart';
@@ -52,7 +52,7 @@ class _LoginScreenState extends State<SignUpScreen> {
           padding: MediaQuery.of(context).size.width > webdim
               ? EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width / 3)
-              : EdgeInsets.symmetric(
+              :const  EdgeInsets.symmetric(
                   horizontal: 27), //to have sone space on sides
           width: double.infinity, //as we want it to stretch
 
@@ -64,13 +64,14 @@ class _LoginScreenState extends State<SignUpScreen> {
               //       Container(), //to have a flexible space on top which will reduce if content below it increases
               //   flex: 1,
               // ),
-              Container(
-                // padding: EdgeInsets.only(bottom: 44),
-                child: SvgPicture.asset(
-                  "assets/mas.svg",
-                  color: Colors.white,
-                  height: 200,
-                ),
+              (kIsWeb)?const Padding(
+                padding:  EdgeInsets.all(15.0),
+                child:  Text('I-Masala',style:TextStyle(color: Colors.white,fontSize: 80,fontStyle: FontStyle.italic)),
+              ) :
+              SvgPicture.asset(
+                "assets/mas.svg",
+                color: Colors.white,
+                height: 200,
               ),
               //circular widget to take a photo from device and stare as dp
               //for that we'll use a stack
@@ -81,7 +82,7 @@ class _LoginScreenState extends State<SignUpScreen> {
                           radius: 64,
                           backgroundImage: MemoryImage(profileImage!),
                         )
-                      : CircleAvatar(
+                      :const CircleAvatar(
                           radius: 64,
                           backgroundImage: NetworkImage(
                               'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png'),
@@ -93,7 +94,7 @@ class _LoginScreenState extends State<SignUpScreen> {
                       onPressed: () {
                         selectImage();
                       },
-                      icon: Icon(Icons.add_a_photo),
+                      icon:const Icon(Icons.add_a_photo),
                     ),
                   ),
                 ],
@@ -145,7 +146,7 @@ class _LoginScreenState extends State<SignUpScreen> {
                       email: _emailController.text,
                       pass: _passController.text,
                       file: profileImage!);
-                  print(res);
+                  // print(res);
                   setState(() {
                     isLoading = false;
                   });
@@ -161,18 +162,10 @@ class _LoginScreenState extends State<SignUpScreen> {
                   }
                 },
                 child: Container(
-                  child: (isLoading == true)
-                      ? CircularProgressIndicator(
-                          color: primaryColor,
-                        )
-                      : const Text(
-                          'Sign Up',
-                          style: TextStyle(fontSize: 16),
-                        ),
                   width: double.infinity,
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(vertical: 12),
-                  decoration: ShapeDecoration(
+                  padding:const EdgeInsets.symmetric(vertical: 12),
+                  decoration:const ShapeDecoration(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(
                           Radius.circular(4),
@@ -180,24 +173,32 @@ class _LoginScreenState extends State<SignUpScreen> {
                       ),
                       color: blueColor),
                   // color: blueColor,
+                  child: (isLoading == true)
+                      ?const CircularProgressIndicator(
+                          color: primaryColor,
+                        )
+                      : const Text(
+                          'Sign Up',
+                          style: TextStyle(fontSize: 16),
+                        ),
                 ),
               ),
               const SizedBox(
                 height: 16,
               ),
               Flexible(
+                flex: 1,
                 child:
                     Container(), //to have a flexible space on top which will reduce if content below it increases
-                flex: 1,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    child: Text(
+                    padding:const EdgeInsets.symmetric(vertical: 8),
+                    child:const Text(
                       "Already have an account?",
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 8),
                   ),
                   InkWell(
                     onTap: () {
@@ -205,11 +206,11 @@ class _LoginScreenState extends State<SignUpScreen> {
                           builder: (context) => const LoginScreen()));
                     },
                     child: Container(
-                      child: Text(
+                      padding:const EdgeInsets.symmetric(vertical: 8),
+                      child:const Text(
                         "Log In",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      padding: EdgeInsets.symmetric(vertical: 8),
                     ),
                   )
                 ],

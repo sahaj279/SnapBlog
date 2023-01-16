@@ -16,7 +16,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   bool showUsers = false;
 
   @override
@@ -30,7 +30,21 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
-        leading: Icon(
+        leading: 
+        showUsers? 
+         InkWell(
+          onTap: () {
+            _searchController.text='';
+            setState(() {
+              showUsers=false;
+            });
+          },
+           child:const Icon(
+            Icons.arrow_back,
+            color: primaryColor,
+                 ),
+         ) :
+        const  Icon(
           Icons.search,
           color: primaryColor,
         ),
@@ -48,7 +62,7 @@ class _SearchScreenState extends State<SearchScreen> {
             });
           },
           controller: _searchController,
-          decoration: InputDecoration(
+          decoration:const  InputDecoration(
             // labelText: 'Search for a user',
             hintText: 'Search a user',
             border: InputBorder.none,
@@ -67,9 +81,21 @@ class _SearchScreenState extends State<SearchScreen> {
                       isGreaterThanOrEqualTo: _searchController.text)
                   .get(),
               builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(
+                if(snapshot.connectionState==ConnectionState.waiting){
+                  return const Center(
                     child: CircularProgressIndicator(),
+                  );
+                }
+                if (!snapshot.hasData) {
+                  // print('no data bc');
+                  return const Center(
+                    child: Text('No results found.',style: TextStyle(color:Colors.white)),
+                  );
+                }
+                // print(snapshot.data);
+                if((snapshot.data! as dynamic).docs.length==0){
+                  return const Center(
+                    child: Text('No results found.',style: TextStyle(color:Colors.white)),
                   );
                 }
                 return ListView.builder(
@@ -94,9 +120,14 @@ class _SearchScreenState extends State<SearchScreen> {
           : FutureBuilder(
               future: FirebaseFirestore.instance.collection('posts').get(),
               builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(
+                if(snapshot.connectionState==ConnectionState.waiting){
+                  return const Center(
                     child: CircularProgressIndicator(),
+                  );
+                }
+                if (!snapshot.hasData) {
+                  return const Center(
+                    child: Text('No one has posted anything'),
                   );
                 }
                 return GridView.custom(
@@ -106,13 +137,13 @@ class _SearchScreenState extends State<SearchScreen> {
                     crossAxisSpacing: 4,
                     repeatPattern: QuiltedGridRepeatPattern.inverted,
                     pattern: MediaQuery.of(context).size.width > webdim
-                        ? [
+                        ? const [
                             QuiltedGridTile(1, 1),
                             QuiltedGridTile(1, 1),
                             QuiltedGridTile(1, 1),
                             // QuiltedGridTile(1, 2),
                           ]
-                        : [
+                        :const  [
                             QuiltedGridTile(2, 2),
                             QuiltedGridTile(1, 1),
                             QuiltedGridTile(1, 1),
@@ -144,14 +175,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     childCount: (snapshot.data! as dynamic).docs.length,
                   ),
                 );
-                MasonryGridView.count(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 4,
-                  crossAxisSpacing: 4,
-                  itemCount: (snapshot.data! as dynamic).docs.length,
-                  itemBuilder: (context, index) => Image.network(
-                      (snapshot.data! as dynamic).docs[index]['postUrl']),
-                );
+                
               },
             ),
     );

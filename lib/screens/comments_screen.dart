@@ -29,7 +29,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
     final User user = Provider.of<UserProvider>(context, listen: false).getUser;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Comments'),
+        title:const  Text('Comments'),
         backgroundColor: mobileBackgroundColor,
       ),
       body: StreamBuilder(
@@ -42,16 +42,14 @@ class _CommentsScreenState extends State<CommentsScreen> {
         builder: (context,
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
-            itemBuilder: (context, index) => Container(
-              child: CommentCard(
-                snap: snapshot.data!.docs[index].data(),
-              ),
+            itemBuilder: (context, index) => CommentCard(
+              snap: snapshot.data!.docs[index].data(),
             ),
           );
         },
@@ -62,7 +60,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
           margin: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
-          padding: EdgeInsets.only(left: 16, right: 8),
+          padding:const  EdgeInsets.only(left: 16, right: 8),
           child: Row(
             children: [
               CircleAvatar(
@@ -74,10 +72,12 @@ class _CommentsScreenState extends State<CommentsScreen> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 16.0, right: 8),
                   child: TextField(
+                    
                     controller: _commentController,
                     decoration: InputDecoration(
+                      hintStyle:const TextStyle(overflow: TextOverflow.ellipsis),
                       hintText:
-                          'Comment as ${(user.username.length > 5) ? user.username.substring(0, 5) + ".. " : user.username}',
+                          'Comment as ${user.username}',
                       border: InputBorder.none,
                     ),
                   ),
@@ -90,12 +90,12 @@ class _CommentsScreenState extends State<CommentsScreen> {
                       widget.postId,
                       user.username,
                       user.photourl);
-                  print(res);
+                  debugPrint(res);
                   _commentController.clear();
                 },
                 child: Container(
-                  padding: EdgeInsets.only(right: 8),
-                  child: Text(
+                  padding:const  EdgeInsets.only(right: 8),
+                  child: const Text(
                     'Post',
                     style: TextStyle(
                         color: blueColor,

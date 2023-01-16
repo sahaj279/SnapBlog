@@ -28,11 +28,11 @@ class _AddPostScreenState extends State<AddPostScreen> {
         context: context,
         builder: (context) {
           return SimpleDialog(
-            title: Text('Create a Post'),
+            title:const  Text('Create a Post'),
             children: [
               SimpleDialogOption(
-                padding: EdgeInsets.all(20),
-                child: Text('Take from photo'),
+                padding:const  EdgeInsets.all(20),
+                child:const  Text('Take from photo'),
                 onPressed: () async {
                   Navigator.of(context).pop();
                   Uint8List file = await Util.pickImage(ImageSource.camera);
@@ -42,8 +42,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 },
               ),
               SimpleDialogOption(
-                padding: EdgeInsets.all(20),
-                child: Text('Chose from gallery'),
+                padding:const  EdgeInsets.all(20),
+                child:const  Text('Chose from gallery'),
                 onPressed: () async {
                   Navigator.of(context).pop();
                   Uint8List file = await Util.pickImage(ImageSource.gallery);
@@ -53,8 +53,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 },
               ),
               SimpleDialogOption(
-                padding: EdgeInsets.all(20),
-                child: Text('Cancel'),
+                padding:const  EdgeInsets.all(20),
+                child:const  Text('Cancel'),
                 onPressed: () async {
                   Navigator.of(context).pop();
                 },
@@ -111,11 +111,11 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Flexible(
-                    child: Container(),
                     flex: 1,
+                    child: Container(),
                   ),
                   IconButton(
-                    icon: Icon(
+                    icon:const  Icon(
                       Icons.upload,
                       size: 35,
                     ),
@@ -125,21 +125,17 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   //   height: 100,
                   // ),
                   Flexible(
-                    child: Container(),
                     flex: 1,
+                    child: Container(),
                   ),
-                  Container(
-                    child: Text(
-                      'Click a picture and share your \nMASALA\n with everyone!! ',
-                      style: TextStyle(
-                        fontSize: 23,
-                      ),
-                      textAlign: TextAlign.center,
+                  const  Text(
+                    'Click a picture and share your \nMASALA\n with everyone!! ',
+                    style: TextStyle(
+                      fontSize: 23,
                     ),
-
-                    // alignment: Alignment.bottomCenter,
+                    textAlign: TextAlign.center,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 80,
                   )
                 ],
@@ -149,9 +145,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
         : Scaffold(
             appBar: AppBar(
               backgroundColor: mobileBackgroundColor,
-              title: Text('Post to'),
+              title:const  Text('Post to'),
               leading: IconButton(
-                icon: Icon(Icons.arrow_back),
+                icon:const  Icon(Icons.arrow_back),
                 onPressed: clearImage,
               ),
               actions: [
@@ -160,7 +156,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                       uid: user.uid,
                       username: user.username,
                       profileImage: user.photourl),
-                  child: Text(
+                  child:const  Text(
                     'Post',
                     style: TextStyle(
                       color: blueColor,
@@ -174,8 +170,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
             body: Column(
               children: [
                 (_isLosding)
-                    ? LinearProgressIndicator()
-                    : Padding(padding: EdgeInsets.only(top: 0)),
+                    ?const  LinearProgressIndicator()
+                    :const  Padding(padding: EdgeInsets.only(top: 0)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,7 +184,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.45,
                       child: TextField(
-                        decoration: InputDecoration(
+                        decoration:const  InputDecoration(
                           hintText: 'Write a Caption...',
                           border: InputBorder.none,
                         ),

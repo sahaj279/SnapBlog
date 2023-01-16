@@ -25,7 +25,7 @@ class TextFieldInpuut extends StatelessWidget {
         focusedBorder: inputBorder,
         enabledBorder: inputBorder,
         filled: true,
-        contentPadding: EdgeInsets.all(18),
+        contentPadding:const  EdgeInsets.all(18),
       ),
       keyboardType: textInputType,
       obscureText: isPass,

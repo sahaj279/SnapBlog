@@ -12,6 +12,7 @@ import 'package:instagram_clone/utils/colors.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
+  // ignore: prefer_const_constructors
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarBrightness: Brightness.dark,
     statusBarColor: mobileBackgroundColor,
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => UserProvider(),
+          create: (context) => UserProvider(),
         ),
       ],
       child: MaterialApp(
@@ -68,7 +69,7 @@ class MyApp extends StatelessWidget {
               }
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(
                   color: primaryColor,
                 ),

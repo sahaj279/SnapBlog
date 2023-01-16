@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/providers/user_provider.dart';
-import 'package:instagram_clone/resources/firestore_methods.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/utils/dimensions.dart';
 import 'package:instagram_clone/widgets/postCard.dart';
@@ -27,7 +26,8 @@ class FeedScreen extends StatelessWidget {
                 backgroundColor:
                     width > webdim ? webBackgroundColor : mobileBackgroundColor,
                 title: Center(
-                  child: SvgPicture.asset(
+                  child: kIsWeb?const Text('I-Masala',style:TextStyle(color: Colors.white,fontSize: 40,fontStyle: FontStyle.italic)) :
+                  SvgPicture.asset(
                     'assets/mast.svg',
                     color: Colors.white,
                     height: 100,
@@ -50,14 +50,14 @@ class FeedScreen extends StatelessWidget {
           builder: (context,
               AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }
             List l = snapshot.data!['following'];
-            print(l.length);
-            print(l);
-            if (l.length > 0) {
+            // print(l.length);
+            // print(l);
+            if (l.isNotEmpty) {
               return StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('posts')
@@ -68,7 +68,7 @@ class FeedScreen extends StatelessWidget {
                     AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
                         snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
@@ -76,7 +76,7 @@ class FeedScreen extends StatelessWidget {
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) => Container(
                       margin: EdgeInsets.symmetric(
-                          horizontal: width > webdim ? width * 0.3 : 0,
+                          horizontal: width > webdim ? width * 0.4 : 0,
                           vertical: width > webdim ? 15 : 0),
                       child: PostCard(
                         snap: snapshot.data!.docs[index].data(),
@@ -97,7 +97,7 @@ class FeedScreen extends StatelessWidget {
               builder: (context,
                   AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }

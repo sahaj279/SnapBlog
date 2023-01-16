@@ -15,27 +15,31 @@ class ResponsiveLayoutBuilder extends StatefulWidget {
 }
 
 class _ResponsiveLayoutBuilderState extends State<ResponsiveLayoutBuilder> {
+  bool load = true;
   @override
   void initState() {
     super.initState();
     addData(); //to user
+    
+    
   }
 
   addData() async {
-    // UserProvider _up = Provider.of(context, listen: true);
-    // await _up.refreshUser();
     await Provider.of<UserProvider>(context, listen: false).refreshUser();
-    // print(Provider.of<UserProvider>(context).getUser);/
+    load = false;
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraint) {
-      if (constraint.maxWidth > webdim) {
-        return widget.weblayout;
-      } else {
-        return widget.moblayout;
-      }
-    });
+    return load
+        ?const Center(child:  CircularProgressIndicator())
+        : LayoutBuilder(builder: (context, constraint) {
+            if (constraint.maxWidth > webdim) {
+              return widget.weblayout;
+            } else {
+              return widget.moblayout;
+            }
+          });
   }
 }

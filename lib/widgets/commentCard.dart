@@ -1,10 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/models/user_model.dart';
-import 'package:instagram_clone/providers/user_provider.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 class CommentCard extends StatefulWidget {
   final snap;
@@ -18,7 +15,7 @@ class _CommentCardState extends State<CommentCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding:const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         children: [
           Padding(
@@ -34,14 +31,14 @@ class _CommentCardState extends State<CommentCard> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width / 1.75,
                 child: RichText(
                   text: TextSpan(
-                      style: TextStyle(color: primaryColor),
+                      style:const  TextStyle(color: primaryColor),
                       children: [
                         TextSpan(
-                            style: TextStyle(
+                            style:const  TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
                             text: widget.snap['username']),
@@ -52,11 +49,11 @@ class _CommentCardState extends State<CommentCard> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 4),
+                padding:const  EdgeInsets.only(top: 4),
                 child: Text(
                   DateFormat.yMMMd()
                       .format(widget.snap['dateOfComment'].toDate()),
-                  style: TextStyle(
+                  style:const  TextStyle(
                       color: Colors.grey, fontWeight: FontWeight.w300),
                 ),
               )

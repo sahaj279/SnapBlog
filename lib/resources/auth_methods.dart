@@ -36,12 +36,12 @@ class Authentication {
         //register user
         UserCredential credential = await _auth.createUserWithEmailAndPassword(
             email: email, password: pass);
-        print(credential.user!.uid); //user id//using user! as it may be null
+        // print(credential.user!.uid); //user id//using user! as it may be null
 
         //storing image in storage
         String downloadUrl = await StorageMethods()
             .uploadImageToStorage('ProfilePics', file, false);
-        print(downloadUrl);
+        // print(downloadUrl);
         //add user to database
 
         //creating a user model

@@ -8,7 +8,7 @@ class ListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding:const  EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         children: [
           CircleAvatar(
@@ -17,14 +17,14 @@ class ListCard extends StatelessWidget {
             radius: 32,
           ),
           Padding(
-            padding: EdgeInsets.only(left: 16),
+            padding:const  EdgeInsets.only(left: 16),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   snap['username'],
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style:const  TextStyle(fontWeight: FontWeight.bold),
                 ),
                 // Text(
                 //   'following',

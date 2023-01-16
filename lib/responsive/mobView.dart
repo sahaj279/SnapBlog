@@ -1,16 +1,11 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/providers/user_provider.dart';
-import 'package:instagram_clone/screens/Activity-screen.dart';
 import 'package:instagram_clone/screens/add_post_screen.dart';
 import 'package:instagram_clone/screens/feed_screen.dart';
 import 'package:instagram_clone/screens/profileScreen.dart';
 import 'package:instagram_clone/screens/search_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
-import 'package:instagram_clone/models/user_model.dart' as model;
-import 'package:provider/provider.dart';
 
 class MobView extends StatefulWidget {
   const MobView({Key? key}) : super(key: key);
@@ -47,7 +42,6 @@ class _MobViewState extends State<MobView> {
 
   @override
   Widget build(BuildContext context) {
-    model.User user = Provider.of<UserProvider>(context).getUser;
     // print(user
     //     .username); //when refresh user is called in responsive layout,it takes time ,till then we get error and after that we get the name
     // var s = user.username;
@@ -57,18 +51,18 @@ class _MobViewState extends State<MobView> {
         extendBody: true,
         backgroundColor: mobileBackgroundColor,
         body: PageView(
+          controller: pageController,
+          onPageChanged: onPageChanged,
+          physics:const  NeverScrollableScrollPhysics(),
           children: [
-            FeedScreen(),
-            SearchScreen(),
-            AddPostScreen(),
+            const FeedScreen(),
+            const SearchScreen(),
+            const AddPostScreen(),
             // ActivityScreen(),
             ProfileScreen(
               uid: FirebaseAuth.instance.currentUser!.uid,
             ),
           ],
-          controller: pageController,
-          onPageChanged: onPageChanged,
-          physics: NeverScrollableScrollPhysics(),
         ),
 
         bottomNavigationBar: CurvedNavigationBar(
@@ -90,9 +84,9 @@ class _MobViewState extends State<MobView> {
           backgroundColor: Colors.transparent,
           height: 60,
           color: mobileBackgroundColor,
-          buttonBackgroundColor: Color(0xffF1F1E6),
+          buttonBackgroundColor:const Color(0xffF1F1E6),
           animationCurve: Curves.easeInOut,
-          animationDuration: Duration(milliseconds: 300),
+          animationDuration:const Duration(milliseconds: 300),
         ),
         // bottomNavigationBar: CupertinoTabBar(
         //   backgroundColor: mobileBackgroundColor,

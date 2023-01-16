@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -37,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: MediaQuery.of(context).size.width > webdim
               ? EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width / 3)
-              : EdgeInsets.symmetric(
+              : const EdgeInsets.symmetric(
                   horizontal: 27), //to have sone space on sides
           width: double.infinity, //as we want it to stretch
 
@@ -49,6 +50,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     Container(), //to have a flexible space on top which will reduce if content below it increases
                 flex: 1,
               ),
+              (kIsWeb)?const Padding(
+                padding:  EdgeInsets.all(15.0),
+                child:  Text('I-Masala',style:TextStyle(color: Colors.white,fontSize: 80,fontStyle: FontStyle.italic)),
+              ) :
               SvgPicture.asset(
                 "assets/mas.svg",
                 color: Colors.white,
@@ -75,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   //login user
                   String res = await Authentication().loginUser(
                       email: _emailController.text, pass: _passController.text);
-                  print(res);
+                  // print(res);
                   if (res != "Success!") {
                     Util.showSnackBar(res, context);
                   } else {
@@ -85,20 +90,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   }
                 },
                 child: Container(
-                  child: const Text(
-                    'Log in',
-                    style: TextStyle(fontSize: 16),
-                  ),
                   width: double.infinity,
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(vertical: 12),
-                  decoration: ShapeDecoration(
+                  padding:const EdgeInsets.symmetric(vertical: 12),
+                  decoration:const ShapeDecoration(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(
                           Radius.circular(4),
                         ),
                       ),
                       color: blueColor),
+                  child: const Text(
+                    'Log in',
+                    style: TextStyle(fontSize: 16),
+                  ),
                   // color: blueColor,
                 ),
               ),
@@ -114,22 +119,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    child: Text(
+                    padding:const EdgeInsets.symmetric(vertical: 8),
+                    child:const Text(
                       "Don't have an account?",
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 8),
                   ),
                   InkWell(
                     onTap: () {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => SignUpScreen()));
+                          builder: (context) =>const SignUpScreen()));
                     },
                     child: Container(
-                      child: Text(
+                      padding:const EdgeInsets.symmetric(vertical: 8),
+                      child:const Text(
                         "Sign Up",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      padding: EdgeInsets.symmetric(vertical: 8),
                     ),
                   )
                 ],

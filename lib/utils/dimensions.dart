@@ -1,1 +1,1 @@
-const webdim = 600;
+const webdim = 800;
