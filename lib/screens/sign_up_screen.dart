@@ -1,17 +1,17 @@
 import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
-import 'package:instagram_clone/responsive/mobView.dart';
-import 'package:instagram_clone/responsive/responsive_layout.dart';
-import 'package:instagram_clone/responsive/webView.dart';
-import 'package:instagram_clone/screens/login_screen.dart';
-import 'package:instagram_clone/utils/dimensions.dart';
-import 'package:instagram_clone/utils/utils.dart';
+import 'package:snapblog/responsive/mobView.dart';
+import 'package:snapblog/responsive/responsive_layout.dart';
+import 'package:snapblog/responsive/webView.dart';
+import 'package:snapblog/screens/login_screen.dart';
+import 'package:snapblog/utils/dimensions.dart';
+import 'package:snapblog/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:instagram_clone/resources/auth_methods.dart';
-import 'package:instagram_clone/utils/colors.dart';
-import 'package:instagram_clone/widgets/text_field_input.dart';
+import 'package:snapblog/resources/auth_methods.dart';
+import 'package:snapblog/utils/colors.dart';
+import 'package:snapblog/widgets/text_field_input.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -51,28 +51,33 @@ class _LoginScreenState extends State<SignUpScreen> {
         child: Container(
           padding: MediaQuery.of(context).size.width > webdim
               ? EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width / 3)
-              :const  EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width / 4)
+              : const EdgeInsets.symmetric(
                   horizontal: 27), //to have sone space on sides
           width: double.infinity, //as we want it to stretch
-
+        
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Flexible(
-              //   child:
-              //       Container(), //to have a flexible space on top which will reduce if content below it increases
-              //   flex: 1,
-              // ),
-              (kIsWeb)?const Padding(
-                padding:  EdgeInsets.all(15.0),
-                child:  Text('I-Masala',style:TextStyle(color: Colors.white,fontSize: 80,fontStyle: FontStyle.italic)),
-              ) :
-              SvgPicture.asset(
-                "assets/mas.svg",
-                color: Colors.white,
-                height: 200,
+              Flexible(
+                flex: 2,
+                child:
+                    Container(child: (kIsWeb)
+                  ? const Padding(
+                      padding: EdgeInsets.all(15.0),
+                      child: Text('SnapBlog',
+                          style: TextStyle(
+                              color: textColor,
+                              fontSize: 80,
+                              fontStyle: FontStyle.italic)),
+                    )
+                  : SvgPicture.asset(
+                      "assets/mas.svg",
+                      color: textColor,
+                      height: 200,
+                    ),), //to have a flexible space on top which will reduce if content below it increases
               ),
+              
               //circular widget to take a photo from device and stare as dp
               //for that we'll use a stack
               Stack(
@@ -82,7 +87,7 @@ class _LoginScreenState extends State<SignUpScreen> {
                           radius: 64,
                           backgroundImage: MemoryImage(profileImage!),
                         )
-                      :const CircleAvatar(
+                      : const CircleAvatar(
                           radius: 64,
                           backgroundImage: NetworkImage(
                               'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png'),
@@ -94,7 +99,7 @@ class _LoginScreenState extends State<SignUpScreen> {
                       onPressed: () {
                         selectImage();
                       },
-                      icon:const Icon(Icons.add_a_photo),
+                      icon: const Icon(Icons.add_a_photo),
                     ),
                   ),
                 ],
@@ -137,9 +142,18 @@ class _LoginScreenState extends State<SignUpScreen> {
               ), //bio
               InkWell(
                 onTap: () async {
+                  if(profileImage==null){
+                     Util.showSnackBar('Select an image first', context);
+                     return;
+                  }
+                  if(_usernameController.text.isEmpty || _emailController.text.isEmpty|| _passController.text.isEmpty|| _bioController.text.isEmpty){
+                     Util.showSnackBar('Fill all the details first', context);
+                     return;
+                  }
                   setState(() {
                     isLoading = true;
                   });
+                  
                   String res = await Authentication().signUpUser(
                       username: _usernameController.text,
                       bio: _bioController.text,
@@ -158,24 +172,23 @@ class _LoginScreenState extends State<SignUpScreen> {
                     //
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => ResponsiveLayoutBuilder(
-                            moblayout: MobView(), weblayout: WebView())));
+                            mobLayout: MobView(), webLayout: WebView())));
                   }
                 },
                 child: Container(
                   width: double.infinity,
                   alignment: Alignment.center,
-                  padding:const EdgeInsets.symmetric(vertical: 12),
-                  decoration:const ShapeDecoration(
-                      shape: RoundedRectangleBorder(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  decoration:  ShapeDecoration(
+                      shape:const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(
                           Radius.circular(4),
                         ),
                       ),
-                      color: blueColor),
+                      color: blogBgColor),
                   // color: blueColor,
                   child: (isLoading == true)
-                      ?const CircularProgressIndicator(
-                          color: primaryColor,
+                      ? const CircularProgressIndicator(
                         )
                       : const Text(
                           'Sign Up',
@@ -189,14 +202,15 @@ class _LoginScreenState extends State<SignUpScreen> {
               Flexible(
                 flex: 1,
                 child:
-                    Container(), //to have a flexible space on top which will reduce if content below it increases
-              ),
-              Row(
+                    Container(
+        
+                      alignment: Alignment.bottomCenter,
+                      child:Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    padding:const EdgeInsets.symmetric(vertical: 8),
-                    child:const Text(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: const Text(
                       "Already have an account?",
                     ),
                   ),
@@ -206,8 +220,8 @@ class _LoginScreenState extends State<SignUpScreen> {
                           builder: (context) => const LoginScreen()));
                     },
                     child: Container(
-                      padding:const EdgeInsets.symmetric(vertical: 8),
-                      child:const Text(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: const Text(
                         "Log In",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -215,6 +229,9 @@ class _LoginScreenState extends State<SignUpScreen> {
                   )
                 ],
               )
+                    ), //to have a flexible space on top which will reduce if content below it increases
+              ),
+              
             ],
           ),
         ),

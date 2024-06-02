@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/models/user_model.dart' as model;
-import 'package:instagram_clone/resources/auth_methods.dart';
+import 'package:snapblog/models/user_model.dart' as model;
+
+import '../resources/auth_methods.dart';
 
 class UserProvider extends ChangeNotifier {
   final Authentication _authentication = Authentication();

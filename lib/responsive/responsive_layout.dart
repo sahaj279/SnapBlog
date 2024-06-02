@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/providers/user_provider.dart';
-import 'package:instagram_clone/utils/dimensions.dart';
+import 'package:snapblog/providers/user_provider.dart';
+import 'package:snapblog/utils/dimensions.dart';
 import 'package:provider/provider.dart';
 
 class ResponsiveLayoutBuilder extends StatefulWidget {
-  final Widget weblayout, moblayout;
+  final Widget webLayout, mobLayout;
   const ResponsiveLayoutBuilder(
-      {Key? key, required this.weblayout, required this.moblayout})
-      : super(key: key);
+      {super.key, required this.webLayout, required this.mobLayout});
 
   @override
   State<ResponsiveLayoutBuilder> createState() =>
@@ -33,12 +32,12 @@ class _ResponsiveLayoutBuilderState extends State<ResponsiveLayoutBuilder> {
   @override
   Widget build(BuildContext context) {
     return load
-        ?const Center(child:  CircularProgressIndicator())
+        ?const Scaffold(body: Center(child:  CircularProgressIndicator()))
         : LayoutBuilder(builder: (context, constraint) {
             if (constraint.maxWidth > webdim) {
-              return widget.weblayout;
+              return widget.webLayout;
             } else {
-              return widget.moblayout;
+              return widget.mobLayout;
             }
           });
   }

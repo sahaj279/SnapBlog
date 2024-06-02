@@ -1,19 +1,19 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:instagram_clone/resources/auth_methods.dart';
-import 'package:instagram_clone/responsive/mobView.dart';
-import 'package:instagram_clone/responsive/responsive_layout.dart';
-import 'package:instagram_clone/responsive/webView.dart';
-import 'package:instagram_clone/screens/sign_up_screen.dart';
-import 'package:instagram_clone/utils/colors.dart';
-import 'package:instagram_clone/utils/dimensions.dart';
-import 'package:instagram_clone/utils/utils.dart';
-import 'package:instagram_clone/widgets/text_field_input.dart';
+import 'package:snapblog/resources/auth_methods.dart';
+import 'package:snapblog/responsive/mobView.dart';
+import 'package:snapblog/responsive/responsive_layout.dart';
+import 'package:snapblog/responsive/webView.dart';
+import 'package:snapblog/screens/sign_up_screen.dart';
+import 'package:snapblog/utils/colors.dart';
+import 'package:snapblog/utils/utils.dart';
+import 'package:snapblog/widgets/text_field_input.dart';
+
+import '../utils/dimensions.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Container(
           padding: MediaQuery.of(context).size.width > webdim
               ? EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width / 3)
+                  horizontal: MediaQuery.of(context).size.width / 4)
               : const EdgeInsets.symmetric(
                   horizontal: 27), //to have sone space on sides
           width: double.infinity, //as we want it to stretch
@@ -46,19 +46,24 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Flexible(
+                flex: 1,
                 child:
                     Container(), //to have a flexible space on top which will reduce if content below it increases
-                flex: 1,
               ),
-              (kIsWeb)?const Padding(
-                padding:  EdgeInsets.all(15.0),
-                child:  Text('I-Masala',style:TextStyle(color: Colors.white,fontSize: 80,fontStyle: FontStyle.italic)),
-              ) :
-              SvgPicture.asset(
-                "assets/mas.svg",
-                color: Colors.white,
-                height: 200,
-              ),
+              (kIsWeb)
+                  ? const Padding(
+                      padding: EdgeInsets.all(15.0),
+                      child: Text('SnapBlog',
+                          style: TextStyle(
+                              color: textColor,
+                              fontSize: 80,
+                              fontStyle: FontStyle.italic)),
+                    )
+                  : SvgPicture.asset(
+                      "assets/mas.svg",
+                      color: borderColor,
+                      height: 200,
+                    ),
               TextFieldInpuut(
                   textEditingController: _emailController,
                   hintText: 'Enter your email',
@@ -84,22 +89,27 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (res != "Success!") {
                     Util.showSnackBar(res, context);
                   } else {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => ResponsiveLayoutBuilder(
-                            moblayout: MobView(), weblayout: WebView())));
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const ResponsiveLayoutBuilder(
+                          mobLayout: MobView(),
+                          webLayout: WebView(),
+                        ),
+                      ),
+                    );
                   }
                 },
                 child: Container(
                   width: double.infinity,
                   alignment: Alignment.center,
-                  padding:const EdgeInsets.symmetric(vertical: 12),
-                  decoration:const ShapeDecoration(
-                      shape: RoundedRectangleBorder(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  decoration: ShapeDecoration(
+                      shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(
                           Radius.circular(4),
                         ),
                       ),
-                      color: blueColor),
+                      color: postBackgroundColor),
                   child: const Text(
                     'Log in',
                     style: TextStyle(fontSize: 16),
@@ -111,34 +121,36 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 24,
               ),
               Flexible(
-                child:
-                    Container(), //to have a flexible space on top which will reduce if content below it increases
                 flex: 2,
+                child: Container(
+                    alignment: Alignment.bottomCenter,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: const Text(
+                            "Don't have an account?",
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const SignUpScreen()));
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: const Text(
+                              "Sign Up",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        )
+                      ],
+                    )), //to have a flexible space on top which will reduce if content below it increases
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding:const EdgeInsets.symmetric(vertical: 8),
-                    child:const Text(
-                      "Don't have an account?",
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) =>const SignUpScreen()));
-                    },
-                    child: Container(
-                      padding:const EdgeInsets.symmetric(vertical: 8),
-                      child:const Text(
-                        "Sign Up",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  )
-                ],
-              )
             ],
           ),
         ),

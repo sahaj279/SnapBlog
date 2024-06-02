@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/screens/Activity-screen.dart';
-import 'package:instagram_clone/screens/add_post_screen.dart';
-import 'package:instagram_clone/screens/feed_screen.dart';
-import 'package:instagram_clone/screens/profileScreen.dart';
-import 'package:instagram_clone/screens/search_screen.dart';
-import 'package:instagram_clone/utils/colors.dart';
+import 'package:snapblog/screens/blog_screen.dart';
+import 'package:snapblog/screens/add_post_screen.dart';
+import 'package:snapblog/screens/feed_screen.dart';
+import 'package:snapblog/screens/profileScreen.dart';
+import 'package:snapblog/screens/search_screen.dart';
+import 'package:snapblog/utils/colors.dart';
 
 class WebView extends StatefulWidget {
   const WebView({Key? key}) : super(key: key);
@@ -47,44 +47,40 @@ class _WebViewState extends State<WebView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: webBackgroundColor,
-        title:const Text('I-Masala',style:TextStyle(color: Colors.white,fontSize: 40,fontStyle: FontStyle.italic)),
+        backgroundColor: Colors.orange[100]!,
+        title:const Text('SnapBlog',style:TextStyle(color: textColor,fontSize: 40,fontStyle: FontStyle.italic)),
               
         actions: [
           IconButton(
             onPressed: () => navigationTapped(0),
             icon: Icon(
-              Icons.home,
-              color: _page == 0 ? primaryColor : secondaryColor,
-            ),
+            _page == 0 ? Icons.home: Icons.home_outlined ,
+            color: _page == 0 ? selectedNavBarButtonColor : textColor,
+          ),
           ),
           IconButton(
             onPressed: () => navigationTapped(1),
-            icon: Icon(
-              Icons.search,
-              color: _page == 1 ? primaryColor : secondaryColor,
-            ),
+            icon: Icon(_page == 1 ? Icons.local_cafe : Icons.local_cafe_outlined,
+              color: _page == 1 ? selectedNavBarButtonColor : textColor),
+          
           ),
           IconButton(
             onPressed: () => navigationTapped(2),
-            icon: Icon(
-              Icons.add_circle,
-              color: _page == 2 ? primaryColor : secondaryColor,
-            ),
+            icon: Icon(_page == 2 ? Icons.add_circle : Icons.add_circle_outline,
+              color: _page == 2 ? selectedNavBarButtonColor : textColor),
+          
           ),
-          // IconButton(
-          //   onPressed: () => navigationTapped(3),
-          //   icon: Icon(
-          //     Icons.notifications,
-          //     color: _page == 3 ? primaryColor : secondaryColor,
-          //   ),
-          // ),
+          IconButton(
+            onPressed: () => navigationTapped(3),
+            icon:  Icon(_page == 3 ? Icons.search : Icons.search_outlined,
+              color: _page == 3 ? selectedNavBarButtonColor : textColor),
+          
+          ),
           IconButton(
             onPressed: () => navigationTapped(4),
-            icon: Icon(
-              Icons.person,
-              color: _page == 3 ? primaryColor : secondaryColor,
-            ),
+            icon:  Icon(_page == 4 ? Icons.person : Icons.person_outline,
+              color: _page == 4 ? selectedNavBarButtonColor : textColor),
+        
           ),
         ],
       ),
@@ -95,9 +91,9 @@ class _WebViewState extends State<WebView> {
         physics:const NeverScrollableScrollPhysics(),
         children: [
         const  FeedScreen(),
-        const  SearchScreen(),
+        const  BlogScreen(),
         const  AddPostScreen(),
-        const  ActivityScreen(),
+        const  SearchScreen(),
           ProfileScreen(
             uid: FirebaseAuth.instance.currentUser!.uid,
           ),

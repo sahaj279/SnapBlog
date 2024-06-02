@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/utils/colors.dart';
+import 'package:snapblog/utils/colors.dart';
 import 'package:intl/intl.dart';
 
 class CommentCard extends StatefulWidget {
@@ -35,7 +35,7 @@ class _CommentCardState extends State<CommentCard> {
                 width: MediaQuery.of(context).size.width / 1.75,
                 child: RichText(
                   text: TextSpan(
-                      style:const  TextStyle(color: primaryColor),
+                      style:const  TextStyle(color: textColor),
                       children: [
                         TextSpan(
                             style:const  TextStyle(

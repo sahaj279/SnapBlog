@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/models/user_model.dart';
-import 'package:instagram_clone/providers/user_provider.dart';
-import 'package:instagram_clone/resources/firestore_methods.dart';
-import 'package:instagram_clone/utils/colors.dart';
-import 'package:instagram_clone/widgets/commentCard.dart';
+import 'package:snapblog/models/user_model.dart';
+import 'package:snapblog/providers/user_provider.dart';
+import 'package:snapblog/resources/firestore_methods.dart';
+import 'package:snapblog/utils/colors.dart';
+import 'package:snapblog/widgets/commentCard.dart';
 import 'package:provider/provider.dart';
 
 class CommentsScreen extends StatefulWidget {
@@ -30,7 +30,6 @@ class _CommentsScreenState extends State<CommentsScreen> {
     return Scaffold(
       appBar: AppBar(
         title:const  Text('Comments'),
-        backgroundColor: mobileBackgroundColor,
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
@@ -47,6 +46,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
             );
           }
           return ListView.builder(
+            shrinkWrap: true,
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) => CommentCard(
               snap: snapshot.data!.docs[index].data(),
@@ -98,7 +98,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
                   child: const Text(
                     'Post',
                     style: TextStyle(
-                        color: blueColor,
+                        color: textButtonColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 20),
                   ),

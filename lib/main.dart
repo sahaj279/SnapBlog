@@ -2,21 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:instagram_clone/providers/user_provider.dart';
-import 'package:instagram_clone/responsive/mobView.dart';
-import 'package:instagram_clone/responsive/responsive_layout.dart';
-import 'package:instagram_clone/responsive/webView.dart';
-import 'package:instagram_clone/screens/login_screen.dart';
-import 'package:instagram_clone/utils/colors.dart';
+import 'package:snapblog/responsive/mobView.dart';
+import 'package:snapblog/responsive/responsive_layout.dart';
+import 'package:snapblog/responsive/webView.dart';
+import 'package:snapblog/screens/login_screen.dart';
 import 'package:provider/provider.dart';
 
+import 'providers/user_provider.dart';
+
 void main() async {
-  // ignore: prefer_const_constructors
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarBrightness: Brightness.dark,
-    statusBarColor: mobileBackgroundColor,
-  ));
   WidgetsFlutterBinding.ensureInitialized();
   if (kIsWeb) {
     await Firebase.initializeApp(
@@ -39,7 +33,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -50,18 +43,17 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'iMasala',
-        theme: ThemeData.dark()
-            .copyWith(scaffoldBackgroundColor: mobileBackgroundColor),
-        // home: ResponsiveLayoutBuilder(moblayout: MobView(), weblayout: WebView()),
-        // home: const LoginScreen(),
+        title: 'SnapBlog',
+        theme: ThemeData(useMaterial3: true),
         home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.active) {
               if (snapshot.hasData) {
                 return const ResponsiveLayoutBuilder(
-                    moblayout: MobView(), weblayout: WebView());
+                  mobLayout: MobView(),
+                  webLayout: WebView(),
+                );
               } else if (snapshot.hasError) {
                 return Center(
                   child: Text('${snapshot.error}'),
@@ -70,9 +62,7 @@ class MyApp extends StatelessWidget {
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
-                child: CircularProgressIndicator(
-                  color: primaryColor,
-                ),
+                child: CircularProgressIndicator(),
               );
             }
             return const LoginScreen();

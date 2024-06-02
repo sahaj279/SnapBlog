@@ -1,28 +1,30 @@
 import 'dart:async';
 import 'dart:typed_data';
-
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:instagram_clone/models/comment_model.dart';
-import 'package:instagram_clone/models/post_model.dart';
-import 'package:instagram_clone/resources/storage_methods.dart';
+import 'package:snapblog/models/comment_model.dart';
+import 'package:snapblog/models/post_model.dart';
+import 'package:snapblog/resources/storage_methods.dart';
 import 'package:uuid/uuid.dart';
 
 class FirestoreMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<String> uploadPost(String desc, Uint8List file, String uid,
+  Future<String> uploadPost(String desc, Uint8List? file, String uid,
       String username, String profileImage) async {
     String res = "Some error occured";
     try {
-      String photoUrl =
+      String photoUrl ="1";
+      if(file!=null){
+        photoUrl =
           await StorageMethods().uploadImageToStorage('posts', file, true);
-      String postId = Uuid().v1();
+      }
+      String postId =const Uuid().v1();
       Post post = Post(desc, uid, username, postId, photoUrl, profileImage, [],
           DateTime.now());
       await _firestore.collection('posts').doc(postId).set(post.toJson());
       res = "Success!";
     } catch (e) {
-      print(e);
       res = e.toString();
     }
     return res;
@@ -41,7 +43,7 @@ class FirestoreMethods {
         });
       }
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 
@@ -60,7 +62,7 @@ class FirestoreMethods {
           .set(commentModel.toJson());
       res = 'Success!';
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
     return res;
   }
@@ -69,7 +71,7 @@ class FirestoreMethods {
     try {
       await _firestore.collection('posts').doc(postId).delete();
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 
@@ -94,7 +96,7 @@ class FirestoreMethods {
         });
       }
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 
@@ -105,7 +107,7 @@ class FirestoreMethods {
       var snapshot = await _firestore.collection('users').doc(uid).get();
       return snapshot.data()!['following'];
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 }

@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
 
 // const mobileBackgroundColor = Color.fromRGBO(0, 0, 0, 1);
-const mobileBackgroundColor = Color(0xff00092C);
+//  Color(0xff00092C);
 const webBackgroundColor = Color.fromRGBO(18, 18, 18, 1);
-const mobileSearchColor = Color(0xffFF5F00);
 // const blueColor = Color.fromRGBO(0, 149, 246, 1);
-const primaryColor = Colors.white;
-const blueColor = Color(0xffffa500);
-const secondaryColor = Colors.grey;
+
+var bottomNavButtonBackgroundColor=Colors.orange[300]!;
+const bottomNavBarColor=Color(0xffffffff);
+const selectedNavBarButtonColor=Colors.black;
+const textColor=Colors.black;
+const borderColor=Colors.black;
+var postBackgroundColor=Colors.orange[300]!;
+var blogBgColor=Colors.lightBlue[300]!;
+const textButtonColor=Colors.orange;
+
+//504538 brown
+//b7a99a greyish
+//00e2c8 blue light
+//00a992 greenish
+// c3fcf2 very light blue green
+//005248 dark green

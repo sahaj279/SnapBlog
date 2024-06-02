@@ -6,8 +6,8 @@ import 'package:snapblog/utils/dimensions.dart';
 import 'package:snapblog/widgets/postCard.dart';
 import 'package:provider/provider.dart';
 
-class FeedScreen extends StatelessWidget {
-  const FeedScreen({Key? key}) : super(key: key);
+class BlogScreen extends StatelessWidget {
+  const BlogScreen({Key? key}) : super(key: key);
 
   // Future<void> getFollow(String uid) async {
   @override
@@ -20,9 +20,10 @@ class FeedScreen extends StatelessWidget {
       appBar: width > webdim
           ? null
           : AppBar(
-              // backgroundColor:Colors.orange[100]!,
+              // backgroundColor:
+              //     width > webdim ? webBackgroundColor : mobileSearchColor,
               title: const Text(
-                'SnapBlog',
+                'Blogs',
                 style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
               ),
               actions: [
@@ -30,7 +31,7 @@ class FeedScreen extends StatelessWidget {
                     onPressed: () {},
                     icon:  Icon(
                       Icons.favorite_border_outlined,
-                      color:borderColor,
+                      color:borderColor
                     ))
               ],
             ),
@@ -55,7 +56,7 @@ class FeedScreen extends StatelessWidget {
               stream: FirebaseFirestore.instance
                   .collection('posts')
                   .where('uid', whereIn: l)
-                  .where('postUrl', isNotEqualTo: "1")
+                  .where('postUrl', isEqualTo: "1")
                   // .orderBy('datePublished', descending: true)
                   .snapshots(),
               builder: (context,
@@ -71,7 +72,7 @@ class FeedScreen extends StatelessWidget {
                   return StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection('posts')
-                        .where('postUrl', isNotEqualTo: "1")
+                        .where('postUrl', isEqualTo: "1")
                         // .orderBy('postUrl')
                         // .orderBy('datePublished', descending: true)
                         .snapshots(),
@@ -86,7 +87,7 @@ class FeedScreen extends StatelessWidget {
 
                       if (snapshot.data == null  || snapshot.data!.docs.isEmpty) {
                         return const Center(
-                          child: Text('No one has posted anything yet!'),
+                          child: Text('No one has posted any blog yet!'),
                         );
                       }
                       return ListView.builder(
@@ -125,9 +126,7 @@ class FeedScreen extends StatelessWidget {
           return StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection('posts')
-                .where('postUrl', isNotEqualTo: "1")
-                // .orderBy('postUrl')
-                // .orderBy('datePublished', descending: true)
+                .where('postUrl', isEqualTo: "1")
                 .snapshots(),
             builder: (context,
                 AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
@@ -136,12 +135,12 @@ class FeedScreen extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 );
               }
-
-              if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
-                return const Center(
-                  child: Text('No one has posted anything yet!'),
+              if (snapshot.data==null  || snapshot.data!.docs.isEmpty) {
+                return const  Center(
+                  child: Text('No one has posted any blog yet!'),
                 );
               }
+              // print(snapshot.data!.docs[0].data());
               return ListView.builder(
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,

@@ -1,8 +1,8 @@
 import 'dart:typed_data';
-import 'package:instagram_clone/models/user_model.dart' as model;
+import 'package:snapblog/models/user_model.dart' as model;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:instagram_clone/resources/storage_methods.dart';
+import 'package:snapblog/resources/storage_methods.dart';
 
 class Authentication {
   final FirebaseAuth _auth = FirebaseAuth.instance; //auth instance
