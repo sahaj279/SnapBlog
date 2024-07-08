@@ -47,6 +47,7 @@ class _LoginScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           padding: MediaQuery.of(context).size.width > webdim
@@ -55,29 +56,30 @@ class _LoginScreenState extends State<SignUpScreen> {
               : const EdgeInsets.symmetric(
                   horizontal: 27), //to have sone space on sides
           width: double.infinity, //as we want it to stretch
-        
+
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Flexible(
                 flex: 2,
-                child:
-                    Container(child: (kIsWeb)
-                  ? const Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: Text('SnapBlog',
-                          style: TextStyle(
-                              color: textColor,
-                              fontSize: 80,
-                              fontStyle: FontStyle.italic)),
-                    )
-                  : SvgPicture.asset(
-                      "assets/mas.svg",
-                      color: textColor,
-                      height: 200,
-                    ),), //to have a flexible space on top which will reduce if content below it increases
+                child: Container(
+                  child: (kIsWeb)
+                      ? const Padding(
+                          padding: EdgeInsets.all(15.0),
+                          child: Text('SnapBlog',
+                              style: TextStyle(
+                                  color: textColor,
+                                  fontSize: 80,
+                                  fontStyle: FontStyle.italic)),
+                        )
+                      : SvgPicture.asset(
+                          "assets/mas.svg",
+                          color: textColor,
+                          height: 200,
+                        ),
+                ), //to have a flexible space on top which will reduce if content below it increases
               ),
-              
+
               //circular widget to take a photo from device and stare as dp
               //for that we'll use a stack
               Stack(
@@ -142,18 +144,21 @@ class _LoginScreenState extends State<SignUpScreen> {
               ), //bio
               InkWell(
                 onTap: () async {
-                  if(profileImage==null){
-                     Util.showSnackBar('Select an image first', context);
-                     return;
+                  if (profileImage == null) {
+                    Util.showSnackBar('Select an image first', context);
+                    return;
                   }
-                  if(_usernameController.text.isEmpty || _emailController.text.isEmpty|| _passController.text.isEmpty|| _bioController.text.isEmpty){
-                     Util.showSnackBar('Fill all the details first', context);
-                     return;
+                  if (_usernameController.text.isEmpty ||
+                      _emailController.text.isEmpty ||
+                      _passController.text.isEmpty ||
+                      _bioController.text.isEmpty) {
+                    Util.showSnackBar('Fill all the details first', context);
+                    return;
                   }
                   setState(() {
                     isLoading = true;
                   });
-                  
+
                   String res = await Authentication().signUpUser(
                       username: _usernameController.text,
                       bio: _bioController.text,
@@ -179,20 +184,20 @@ class _LoginScreenState extends State<SignUpScreen> {
                   width: double.infinity,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(vertical: 12),
-                  decoration:  ShapeDecoration(
-                      shape:const RoundedRectangleBorder(
+                  decoration: const ShapeDecoration(
+                      shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(
                           Radius.circular(4),
                         ),
                       ),
-                      color: blogBgColor),
+                      color: Color(0xff5790DF)),
                   // color: blueColor,
                   child: (isLoading == true)
-                      ? const CircularProgressIndicator(
-                        )
+                      ? const CircularProgressIndicator()
                       : const Text(
                           'Sign Up',
-                          style: TextStyle(fontSize: 16),
+                          style:
+                              TextStyle(fontSize: 16, color: Color(0xffE6EEFA)),
                         ),
                 ),
               ),
@@ -201,37 +206,34 @@ class _LoginScreenState extends State<SignUpScreen> {
               ),
               Flexible(
                 flex: 1,
-                child:
-                    Container(
-        
-                      alignment: Alignment.bottomCenter,
-                      child:Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: const Text(
-                      "Already have an account?",
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => const LoginScreen()));
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: const Text(
-                        "Log In",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  )
-                ],
-              )
-                    ), //to have a flexible space on top which will reduce if content below it increases
+                child: Container(
+                    alignment: Alignment.bottomCenter,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: const Text(
+                            "Already have an account?",
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginScreen()));
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: const Text(
+                              "Log In",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        )
+                      ],
+                    )), //to have a flexible space on top which will reduce if content below it increases
               ),
-              
             ],
           ),
         ),

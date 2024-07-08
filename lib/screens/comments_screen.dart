@@ -28,8 +28,10 @@ class _CommentsScreenState extends State<CommentsScreen> {
   Widget build(BuildContext context) {
     final User user = Provider.of<UserProvider>(context, listen: false).getUser;
     return Scaffold(
+      backgroundColor: bgColor,
       appBar: AppBar(
-        title:const  Text('Comments'),
+        backgroundColor: bgColor,
+        title: const Text('Comments'),
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
@@ -56,11 +58,12 @@ class _CommentsScreenState extends State<CommentsScreen> {
       ),
       bottomNavigationBar: SafeArea(
         child: Container(
+          color: Colors.white,
           height: kToolbarHeight,
           margin: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
-          padding:const  EdgeInsets.only(left: 16, right: 8),
+          padding: const EdgeInsets.only(left: 16, right: 8),
           child: Row(
             children: [
               CircleAvatar(
@@ -72,12 +75,11 @@ class _CommentsScreenState extends State<CommentsScreen> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 16.0, right: 8),
                   child: TextField(
-                    
                     controller: _commentController,
                     decoration: InputDecoration(
-                      hintStyle:const TextStyle(overflow: TextOverflow.ellipsis),
-                      hintText:
-                          'Comment as ${user.username}',
+                      hintStyle:
+                          const TextStyle(overflow: TextOverflow.ellipsis),
+                      hintText: 'Comment as ${user.username}',
                       border: InputBorder.none,
                     ),
                   ),
@@ -94,11 +96,11 @@ class _CommentsScreenState extends State<CommentsScreen> {
                   _commentController.clear();
                 },
                 child: Container(
-                  padding:const  EdgeInsets.only(right: 8),
+                  padding: const EdgeInsets.only(right: 8),
                   child: const Text(
                     'Post',
                     style: TextStyle(
-                        color: textButtonColor,
+                        color: blueAccentColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 20),
                   ),

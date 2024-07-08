@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:snapblog/utils/dimensions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -29,6 +30,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
         context: context,
         builder: (context) {
           return SimpleDialog(
+            backgroundColor: themeWhiteColor,
             title: const Text('Create a Post'),
             children: [
               SimpleDialogOption(
@@ -105,146 +107,188 @@ class _AddPostScreenState extends State<AddPostScreen> {
   void _addblog() {
     setState(() {
       isblog = true;
-      // print(_file);
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     final User user = Provider.of<UserProvider>(context).getUser;
     return (_file == null && isblog == false)
         ? SafeArea(
-          child: Scaffold(
-              backgroundColor: Colors.white,
-              body: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      const Text(
-                        'Add a post',
-                        style:
-                            TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
-                      ),
-                      IconButton(
-                        icon: const Icon(
-                          Icons.upload,
-                          size: 35,
-                          color:borderColor
-                        ),
-                        onPressed: () => _selectImage(context),
-                      ),
-                    ],
-                  ),
-                  const Divider(
-                    color: Colors.grey,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      const Text(
-                        'Write a blog',
-                        style:
-                            TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
-                      ),
-                      IconButton(
-                        icon:const  Icon(
-                          Icons.draw_outlined,
-                          size: 35,
-                          color: borderColor,
-                        ),
-                        onPressed: _addblog,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-        )
-        : isblog == true
-            ? Scaffold(
-                appBar: AppBar(
-                  title: const Text('Blog',style: TextStyle(fontWeight: FontWeight.bold),),
-                  leading: IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: clearImage,
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () => postImage(
-                          uid: user.uid,
-                          username: user.username,
-                          profileImage: user.photourl), //is blog
-                      child: const Text(
-                        'Post',
-                        style: TextStyle(
-                          color: textButtonColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: width > webdim ? width / 4 : 0),
+              child: Scaffold(
+                backgroundColor: Color(0xffE6EEFA),
+                appBar: width > webdim
+                    ? null
+                    : AppBar(
+                        backgroundColor: Colors.white,
+                        elevation: 0,
+                        scrolledUnderElevation: 0,
+                        // backgroundColor:Colors.orange[100]!,
+                        title: const Text(
+                          'Post',
+                          style: TextStyle(
+                              color: textColor, fontWeight: FontWeight.bold),
                         ),
                       ),
+                body: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        const Text(
+                          'Share a snap',
+                          style: TextStyle(
+                              fontSize: 23, fontWeight: FontWeight.bold),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.upload,
+                              size: 35, color: Color(0xff6C7A9C)),
+                          onPressed: () => _selectImage(context),
+                        ),
+                      ],
+                    ),
+                    const Divider(
+                      color: Color(0xff6C7A9C),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        const Text(
+                          'Write a blog',
+                          style: TextStyle(
+                              fontSize: 23, fontWeight: FontWeight.bold),
+                        ),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.draw_outlined,
+                            size: 35,
+                            color: Color(0xff6C7A9C),
+                          ),
+                          onPressed: _addblog,
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                body: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      (_isLosding)
-                          ? const LinearProgressIndicator()
-                          : const Padding(padding: EdgeInsets.only(top: 0)),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: borderColor,
-                              radius: 19,
-                              child: CircleAvatar(
-                              radius: 16,
-                                backgroundImage:
-                                    CachedNetworkImageProvider(user.photourl),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            Text(
-                              user.username,
-                              style: const TextStyle(
-                                  fontSize: 20, color: textColor,fontWeight: FontWeight.bold),
-                            ),
-                          ],
+              ),
+            ),
+          )
+        : isblog == true
+            ? Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: width > webdim ? width / 4 : 0),
+                child: Scaffold(
+                  backgroundColor: bgColor,
+                  appBar: AppBar(
+                    elevation: 0,
+                    scrolledUnderElevation: 0,
+                    backgroundColor: bgColor,
+                    title: const Text(
+                      'Blog',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    leading: IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: clearImage,
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () => postImage(
+                            uid: user.uid,
+                            username: user.username,
+                            profileImage: user.photourl), //is blog
+                        child: const Text(
+                          'Post',
+                          style: TextStyle(
+                            color: blueAccentColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
                         ),
                       ),
-                      Divider(color: borderColor,),
-                      Padding(
-                          padding: const EdgeInsets.all(10.0).copyWith(top:0),
-                          child: TextField(
-                            scrollPhysics:const NeverScrollableScrollPhysics(),
-                            controller: _descController,
-                            autofocus: true,
-                            maxLines: null,
-                            cursorColor: Colors.white,
-                            style: const TextStyle(
-                              fontSize: 20,
-                            ),
-                            decoration:const  InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'I want to share...',
-                            ),
-                          ))
                     ],
+                  ),
+                  body: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        (_isLosding)
+                            ? const LinearProgressIndicator(
+                                color: darkBlueColor,
+                                backgroundColor: Colors.white,
+                              )
+                            : const Padding(padding: EdgeInsets.only(top: 0)),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: themeWhiteColor,
+                                radius: 18,
+                                child: CircleAvatar(
+                                  radius: 16,
+                                  backgroundImage:
+                                      CachedNetworkImageProvider(user.photourl),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Text(
+                                user.username,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  color: textColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Divider(
+                          color: greyColor,
+                        ),
+                        Padding(
+                            padding:
+                                const EdgeInsets.all(10.0).copyWith(top: 0),
+                            child: TextField(
+                              scrollPhysics:
+                                  const NeverScrollableScrollPhysics(),
+                              controller: _descController,
+                              autofocus: true,
+                              maxLines: 10,
+                              cursorColor: blueAccentColor,
+                              style: const TextStyle(
+                                fontSize: 20,
+                              ),
+                              decoration: const InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                border: InputBorder.none,
+                                hintText: 'I want to share...',
+                              ),
+                            ))
+                      ],
+                    ),
                   ),
                 ),
               )
             : Scaffold(
+                backgroundColor: bgColor,
                 appBar: AppBar(
-                  title: const Text('Post to',style:TextStyle(fontWeight: FontWeight.bold)),
+                  elevation: 0,
+                  scrolledUnderElevation: 0,
+                  backgroundColor: bgColor,
+                  title: const Text('Post to',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                   leading: IconButton(
                     icon: const Icon(Icons.arrow_back),
                     onPressed: clearImage,
@@ -258,7 +302,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                       child: const Text(
                         'Post',
                         style: TextStyle(
-                          color: textButtonColor,
+                          color: blueAccentColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
@@ -269,30 +313,37 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 body: Column(
                   children: [
                     (_isLosding)
-                        ? const LinearProgressIndicator()
+                        ? const LinearProgressIndicator(
+                            color: darkBlueColor,
+                            backgroundColor: Colors.white,
+                          )
                         : const Padding(padding: EdgeInsets.only(top: 0)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CircleAvatar(
-                          backgroundColor: borderColor,
-                          radius:19,
+                          backgroundColor: themeWhiteColor,
+                          radius: 18,
                           child: CircleAvatar(
-                          radius:16,
+                            radius: 16,
                             backgroundImage:
                                 CachedNetworkImageProvider(user.photourl),
                             // NetworkImage(user.photourl),
                           ),
                         ),
-                        SizedBox(
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(36)),
+                          padding: EdgeInsets.all(10),
                           width: MediaQuery.of(context).size.width * 0.45,
                           child: TextField(
                             decoration: const InputDecoration(
                               hintText: 'Write a Caption...',
                               border: InputBorder.none,
                             ),
-                            maxLines: 5,
+                            maxLines: 10,
                             maxLength: 100,
                             controller: _descController,
                           ),
@@ -312,10 +363,6 @@ class _AddPostScreenState extends State<AddPostScreen> {
                             ),
                           ),
                         ),
-                        // Divider(
-                        //   // height: 20,
-                        //   color: Colors.grey,
-                        // ),
                       ],
                     )
                   ],

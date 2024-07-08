@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:snapblog/utils/colors.dart';
 
 class TextFieldInpuut extends StatelessWidget {
   const TextFieldInpuut(
@@ -20,13 +21,15 @@ class TextFieldInpuut extends StatelessWidget {
     return TextField(
       controller: textEditingController,
       decoration: InputDecoration(
+        fillColor: bgColor,
         hintText: hintText,
         border: inputBorder,
         focusedBorder: inputBorder,
         enabledBorder: inputBorder,
         filled: true,
-        contentPadding:const  EdgeInsets.all(18),
+        contentPadding: const EdgeInsets.all(18),
       ),
+      cursorColor: blueAccentColor,
       keyboardType: textInputType,
       obscureText: isPass,
     );

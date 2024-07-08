@@ -33,6 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           padding: MediaQuery.of(context).size.width > webdim
@@ -61,7 +62,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     )
                   : SvgPicture.asset(
                       "assets/mas.svg",
-                      color: borderColor,
                       height: 200,
                     ),
               TextFieldInpuut(
@@ -103,16 +103,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: double.infinity,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(vertical: 12),
-                  decoration: ShapeDecoration(
-                      shape: const RoundedRectangleBorder(
+                  decoration: const ShapeDecoration(
+                      shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(
                           Radius.circular(4),
                         ),
                       ),
-                      color: postBackgroundColor),
+                      color: Color(0xff5790DF)),
                   child: const Text(
                     'Log in',
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 16, color: Color(0xffE6EEFA)),
                   ),
                   // color: blueColor,
                 ),

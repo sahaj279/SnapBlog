@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:snapblog/models/user_model.dart';
 import 'package:snapblog/providers/user_provider.dart';
@@ -46,14 +47,13 @@ class _PostCardState extends State<PostCard> {
   Widget build(BuildContext context) {
     final User user = Provider.of<UserProvider>(context, listen: false).getUser;
     return Container(
-      margin:const EdgeInsets.symmetric(horizontal:15).copyWith(bottom: 17),
+      margin: const EdgeInsets.symmetric(horizontal: 15).copyWith(bottom: 17),
       decoration: BoxDecoration(
-            border: Border.all(color: borderColor, width: 3),
-            borderRadius: BorderRadius.circular(10),
-              color: 
-                widget.snap['postUrl']=="1"?blogBgColor:postBackgroundColor,
-            
-            ),
+        // border: Border.all(color: borderColor, width: 3),
+        borderRadius: BorderRadius.circular(36),
+        color:
+            widget.snap['postUrl'] == "1" ? blogBgColor : postBackgroundColor,
+      ),
       padding: const EdgeInsets.symmetric(
         vertical: 5,
         horizontal: 5,
@@ -62,13 +62,12 @@ class _PostCardState extends State<PostCard> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 4).copyWith(left:16),
+            padding: const EdgeInsets.symmetric(vertical: 4).copyWith(left: 16),
             child: Row(
               children: [
-                
                 CircleAvatar(
-                  radius: 19,
-                  backgroundColor: borderColor,
+                  radius: 17,
+                  backgroundColor: Colors.white,
                   child: CircleAvatar(
                     radius: 16,
                     foregroundImage:
@@ -142,9 +141,9 @@ class _PostCardState extends State<PostCard> {
                                         .toList(),
                                   ),
                                 )),
-                        icon:const  Icon(
+                        icon: const Icon(
                           Icons.more_vert,
-                          color:borderColor,
+                          color: Colors.white,
                         ),
                       )
                     : Container()
@@ -164,33 +163,35 @@ class _PostCardState extends State<PostCard> {
             child: Stack(alignment: Alignment.center, children: [
               widget.snap['postUrl'] != "1"
                   ? Container(
-                    
-                    decoration: BoxDecoration(
-                      color: Colors.purple[50],
-                      border: Border.all(width: 3,color:borderColor),
-                      borderRadius: BorderRadius.circular(5)),
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                      height: MediaQuery.of(context).size.height * 0.5,
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      decoration: BoxDecoration(
+                          color: const Color(0xffE9E9EB),
+                          // border: Border.all(width: 3, color: borderColor),
+                          borderRadius: BorderRadius.circular(36)),
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      // height: MediaQuery.of(context).size.height * 0.5,
                       width: double.infinity,
                       child: Image(
-                        image: CachedNetworkImageProvider(
-                            widget.snap['postUrl']),
-                            fit: BoxFit.fitHeight,
-                      )
-                      // Image.network(
-                      //   widget.snap['postUrl'],
-                      //   fit: BoxFit.fitHeight,
-                      // ),
-                      )
-                      //for blog posts
+                        image:
+                            CachedNetworkImageProvider(widget.snap['postUrl']),
+                        fit: BoxFit.contain,
+                      ))
+                  //for blog posts
                   : Container(
-                    width: MediaQuery.of(context).size.width/1.2,
-                    padding:const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color:Colors.white,
-                      border: Border.all(width: 3,color:borderColor),
-                      borderRadius: BorderRadius.circular(5)),
-                    child: Text(widget.snap['description'],style:const TextStyle(fontSize: 16,fontWeight: FontWeight.w600))),
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      width: double.infinity,
+                      // width: MediaQuery.of(context).size.width / 1.2,
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          // border: Border.all(width: 3, color: borderColor),
+                          borderRadius: BorderRadius.circular(36)),
+                      child: Text(
+                        widget.snap['description'],
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                      ),
+                    ),
               AnimatedOpacity(
                 duration: const Duration(milliseconds: 200),
                 opacity: isLikeAnimating ? 1 : 0,
@@ -205,7 +206,7 @@ class _PostCardState extends State<PostCard> {
                   },
                   child: const Icon(
                     size: 120,
-                    color: Colors.white,
+                    color: themeWhiteColor,
                     Icons.local_fire_department,
                   ),
                 ),
@@ -225,14 +226,14 @@ class _PostCardState extends State<PostCard> {
                         widget.snap['postId'], user.uid, widget.snap['likes']);
                   },
                   icon: widget.snap['likes'].contains(user.uid)
-                      ?  Icon(
+                      ? Icon(
                           Icons.local_fire_department_sharp,
-                          color:widget.snap['postUrl']=="1"?Colors.pink: Colors.deepOrange,
+                          color: bottomNavButtonBackgroundColor,
                           size: 28,
                         )
                       : const Icon(
                           Icons.local_fire_department_outlined,
-                          color: borderColor,
+                          color: Colors.white,
                           size: 28,
                         ),
                   padding: const EdgeInsets.all(0),
@@ -240,14 +241,15 @@ class _PostCardState extends State<PostCard> {
               ),
               IconButton(
                 onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CommentsScreen(
-                              postId: widget.snap['postId'],
-                            ))),
-                icon:const  Icon(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CommentsScreen(
+                            postId: widget.snap['postId'],
+                          )),
+                ),
+                icon: const Icon(
                   Icons.mode_comment_outlined,
-                  color: borderColor,
+                  color: Colors.white,
 
                   // size: 24,
                 ),
@@ -275,7 +277,7 @@ class _PostCardState extends State<PostCard> {
               // ))
             ],
           ),
-          //x likes, name and description 
+          //x likes, name and description
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
@@ -283,45 +285,46 @@ class _PostCardState extends State<PostCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                    '${widget.snap['likes'].length} Likes',
-                    // style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                widget.snap['postUrl']=="1"?Container():
-                Container(
-                  padding: const EdgeInsets.only(top: 8),
-                  width: double.infinity,
-                  child: RichText(
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    //like a row widget for text
-                    text: TextSpan(
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: textColor,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: widget.snap['username'],
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
-                          
-                          TextSpan(
-                            text: ' ${widget.snap['description']}',
-                            style: const TextStyle(
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          )
-                        ]),
-                  ),
+                  '${widget.snap['likes'].length} Like${widget.snap['likes'].length == 1 ? "" : "s"}',
+                  // style: Theme.of(context).textTheme.bodyMedium,
                 ),
+                widget.snap['postUrl'] == "1"
+                    ? Container()
+                    : Container(
+                        padding: const EdgeInsets.only(top: 8),
+                        width: double.infinity,
+                        child: RichText(
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          //like a row widget for text
+                          text: TextSpan(
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: textColor,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: widget.snap['username'],
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: ' ${widget.snap['description']}',
+                                  style: const TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                )
+                              ]),
+                        ),
+                      ),
 
                 //now a view more comments option
                 InkWell(
                   onTap: () => Navigator.push(
                       context,
-                      MaterialPageRoute(
+                      CupertinoPageRoute(
+                          fullscreenDialog: true,
                           builder: (context) => CommentsScreen(
                                 postId: widget.snap['postId'],
                               ))), //to show the all comments screen
@@ -329,12 +332,11 @@ class _PostCardState extends State<PostCard> {
                     padding: const EdgeInsets.only(top: 8),
                     child: Text(
                       comLen == 0
-                          ? 'No Coments'
+                          ? 'No Comments'
                           : (comLen == 1)
                               ? 'View comments'
                               : 'View all $comLen comments',
-                      style:
-                          const TextStyle(fontSize: 16, color: Colors.brown),
+                      style: const TextStyle(fontSize: 16, color: Colors.brown),
                     ),
                   ),
                 ),

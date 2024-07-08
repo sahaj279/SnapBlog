@@ -17,9 +17,13 @@ class FeedScreen extends StatelessWidget {
 
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: width > webdim
           ? null
           : AppBar(
+              backgroundColor: Colors.white,
+              elevation: 0,
+              scrolledUnderElevation: 0,
               // backgroundColor:Colors.orange[100]!,
               title: const Text(
                 'SnapBlog',
@@ -28,9 +32,9 @@ class FeedScreen extends StatelessWidget {
               actions: [
                 IconButton(
                     onPressed: () {},
-                    icon:  Icon(
+                    icon: const Icon(
                       Icons.favorite_border_outlined,
-                      color:borderColor,
+                      color: Colors.black,
                     ))
               ],
             ),
@@ -65,7 +69,7 @@ class FeedScreen extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 }
-                if (snapshot.data == null  || snapshot.data!.docs.isEmpty) {
+                if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
                   //users you follow haven't posted anything
                   //again show al posts
                   return StreamBuilder(
@@ -84,7 +88,8 @@ class FeedScreen extends StatelessWidget {
                         );
                       }
 
-                      if (snapshot.data == null  || snapshot.data!.docs.isEmpty) {
+                      if (snapshot.data == null ||
+                          snapshot.data!.docs.isEmpty) {
                         return const Center(
                           child: Text('No one has posted anything yet!'),
                         );
@@ -111,7 +116,7 @@ class FeedScreen extends StatelessWidget {
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) => Container(
                     margin: EdgeInsets.symmetric(
-                        horizontal: width > webdim ? width * 0.4 : 0,
+                        horizontal: width > webdim ? width * 0.3 : 0,
                         vertical: width > webdim ? 15 : 0),
                     child: PostCard(
                       snap: snapshot.data!.docs[index].data(),

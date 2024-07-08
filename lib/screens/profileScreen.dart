@@ -75,8 +75,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: CircularProgressIndicator(),
           )
         : Scaffold(
+            backgroundColor: bgColor,
             appBar: AppBar(
-              // backgroundColor: mobileBackgroundColor,
+              elevation: 0,
+              scrolledUnderElevation: 0,
+              backgroundColor: bgColor,
               title: Text(
                 userData['username'],
                 style: const TextStyle(
@@ -112,19 +115,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   .toList(),
                             ),
                           )),
-                  icon:const Icon(
+                  icon: const Icon(
                     Icons.more_vert,
-                    color: borderColor,
+                    color: Colors.black,
                   ),
                 )
               ],
             ),
             body: Padding(
-              padding:MediaQuery.of(context).size.width>webdim?
-           EdgeInsets.symmetric(
-            vertical: 5,
-            horizontal: MediaQuery.of(context).size.width/3,
-          ): const EdgeInsets.all(0.0),
+              padding: MediaQuery.of(context).size.width > webdim
+                  ? EdgeInsets.symmetric(
+                      vertical: 5,
+                      horizontal: MediaQuery.of(context).size.width / 3,
+                    )
+                  : const EdgeInsets.all(0.0),
               child: ListView(
                 children: [
                   Column(
@@ -143,10 +147,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               padding:
                                   const EdgeInsets.only(right: 16.0, left: 6),
                               child: CircleAvatar(
-                                backgroundColor: Colors.black,
+                                backgroundColor: themeWhiteColor,
                                 radius: 50,
                                 child: CircleAvatar(
-                                  radius: 47,
+                                  radius: 48,
                                   backgroundImage: CachedNetworkImageProvider(
                                       userData['photourl']),
                                   backgroundColor: Colors.grey,
@@ -160,7 +164,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       ProfileValuesWidget(
                                         val: postLen,
@@ -177,16 +182,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ],
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 4),
+                                    padding: const EdgeInsets.only(top: 6),
                                     child: isOriginalUser
                                         ? ProfileScreenButton(
-                                            // backgroundColor: mobileSearchColor,
+                                            backgroundColor: Colors.white,
                                             text: 'Edit Profile',
                                             onTap: () {})
                                         : isFollowing
                                             ? ProfileScreenButton(
-                                                // backgroundColor:
-                                                //     mobileSearchColor,
+                                                backgroundColor: Colors.white,
                                                 text: 'Unfollow',
                                                 onTap: //unFollow user
                                                     () async {
@@ -201,7 +205,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                   });
                                                 })
                                             : ProfileScreenButton(
-                                                backgroundColor: postBackgroundColor,
+                                                backgroundColor:
+                                                    blueAccentColor,
                                                 text: 'Follow',
                                                 onTap: () async {
                                                   await FirestoreMethods()
@@ -213,7 +218,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     isFollowing = true;
                                                     followers++;
                                                   });
-                                                }),
+                                                },
+                                              ),
                                   ),
                                 ],
                               ),
@@ -224,68 +230,74 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 10,
-                        ).copyWith(top: 8),
+                        ).copyWith(top: 10),
                         child: Text(
                           userData['bio'],
-                          style: const TextStyle(fontSize: 18),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: greyColor,
+                          ),
                         ),
                       ),
                     ],
                   ),
                   // const Divider(color:Colors.black),
                   Center(
-                    child: Container(
-                        margin: const EdgeInsets.only(top: 8, bottom: 10),
-                        decoration: BoxDecoration(
-                          border: Border.all(width: 2, color: borderColor),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  showPosts = true;
-                                  setState(() {});
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: showPosts ? postBackgroundColor : null,
-                                    borderRadius:const BorderRadius.only(
-                                        topLeft: Radius.circular(5),
-                                        bottomLeft: Radius.circular(5)),
-                                    // border: Border(
-                                    //   right: BorderSide(color: borderColor, width: 2),
-                                    // ),
-                                  ),
-                                  padding:const EdgeInsets.symmetric(
-                                      vertical: 5, horizontal: 10),
-                                  child:const Text('Posts',
-                                      style: TextStyle(
-                                          color: textColor, fontSize: 20)),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10, bottom: 10),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              showPosts = true;
+                              setState(() {});
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color:
+                                    showPosts ? blueAccentColor : Colors.white,
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(36),
+                                  bottomLeft: Radius.circular(36),
                                 ),
+                                // border: Border(
+                                //   right: BorderSide(color: borderColor, width: 2),
+                                // ),
                               ),
-                              InkWell(
-                                onTap: () {
-                                  showPosts = false;
-                                  setState(() {});
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: showPosts ? null : blogBgColor,
-                                    borderRadius:const BorderRadius.only(
-                                        topRight: Radius.circular(5),
-                                        bottomRight: Radius.circular(5)),
-                                  ),
-                                  padding:const EdgeInsets.symmetric(
-                                      vertical: 5, horizontal: 10),
-                                  child:const Text('Blogs',
-                                      style: TextStyle(
-                                          color: textColor, fontSize: 20)),
-                                ),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 10),
+                              child: const Text('Posts',
+                                  style: TextStyle(
+                                      color: textColor, fontSize: 20)),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              showPosts = false;
+                              setState(() {});
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color:
+                                    showPosts ? Colors.white : blueAccentColor,
+                                borderRadius: const BorderRadius.only(
+                                    topRight: Radius.circular(36),
+                                    bottomRight: Radius.circular(36)),
                               ),
-                            ])),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 10),
+                              child: const Text(
+                                'Blogs',
+                                style:
+                                    TextStyle(color: textColor, fontSize: 20),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                   Container(
                       padding: const EdgeInsets.all(10).copyWith(top: 0),
@@ -294,7 +306,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               stream: FirebaseFirestore.instance
                                   .collection('posts')
                                   .where('postUrl', isNotEqualTo: "1")
-                                  .where('uid', isEqualTo: widget.uid).snapshots(),
+                                  .where('uid', isEqualTo: widget.uid)
+                                  .snapshots(),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
@@ -306,8 +319,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     (snapshot.data! as dynamic).docs.length ==
                                         0) {
                                   return const Center(
-                                    child:
-                                        Text('You haven\'t posted anything yet.'),
+                                    child: Text(
+                                        'You haven\'t posted anything yet.'),
                                   );
                                 }
                                 return GridView.builder(
@@ -328,9 +341,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               MaterialPageRoute(
                                                   builder: (context) {
                                             return SinglePostCard(
-                                                snap: (snapshot.data! as dynamic)
-                                                    .docs[index]
-                                                    .data());
+                                                snap:
+                                                    (snapshot.data! as dynamic)
+                                                        .docs[index]
+                                                        .data());
                                           }));
                                         },
                                         child: ExplorePostCard(
@@ -357,8 +371,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     (snapshot.data! as dynamic).docs.length ==
                                         0) {
                                   return const Center(
-                                    child:
-                                        Text('You haven\'t posted anything yet.'),
+                                    child: Text(
+                                        'You haven\'t posted anything yet.'),
                                   );
                                 }
                                 return GridView.builder(
@@ -373,16 +387,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     childAspectRatio: 1,
                                   ),
                                   itemBuilder: (context, index) {
-                                   
                                     return InkWell(
                                         onTap: () {
                                           Navigator.push(context,
                                               MaterialPageRoute(
                                                   builder: (context) {
                                             return SinglePostCard(
-                                                snap: (snapshot.data! as dynamic)
-                                                    .docs[index]
-                                                    .data());
+                                                snap:
+                                                    (snapshot.data! as dynamic)
+                                                        .docs[index]
+                                                        .data());
                                           }));
                                         },
                                         child: ExplorePostCard(

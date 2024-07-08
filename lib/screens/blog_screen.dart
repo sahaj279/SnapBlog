@@ -17,11 +17,14 @@ class BlogScreen extends StatelessWidget {
 
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: width > webdim
           ? null
           : AppBar(
-              // backgroundColor:
-              //     width > webdim ? webBackgroundColor : mobileSearchColor,
+              scrolledUnderElevation: 0,
+              elevation: 0,
+              backgroundColor:
+                  width > webdim ? webBackgroundColor : Colors.white,
               title: const Text(
                 'Blogs',
                 style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
@@ -29,10 +32,8 @@ class BlogScreen extends StatelessWidget {
               actions: [
                 IconButton(
                     onPressed: () {},
-                    icon:  Icon(
-                      Icons.favorite_border_outlined,
-                      color:borderColor
-                    ))
+                    icon: Icon(Icons.favorite_border_outlined,
+                        color: Colors.black))
               ],
             ),
       body: FutureBuilder(
@@ -66,7 +67,7 @@ class BlogScreen extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 }
-                if (snapshot.data == null  || snapshot.data!.docs.isEmpty) {
+                if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
                   //users you follow haven't posted anything
                   //again show al posts
                   return StreamBuilder(
@@ -85,7 +86,8 @@ class BlogScreen extends StatelessWidget {
                         );
                       }
 
-                      if (snapshot.data == null  || snapshot.data!.docs.isEmpty) {
+                      if (snapshot.data == null ||
+                          snapshot.data!.docs.isEmpty) {
                         return const Center(
                           child: Text('No one has posted any blog yet!'),
                         );
@@ -96,7 +98,7 @@ class BlogScreen extends StatelessWidget {
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (context, index) => Container(
                           margin: EdgeInsets.symmetric(
-                              horizontal: width > webdim ? width * 0.3 : 0,
+                              horizontal: width > webdim ? width * 0.18 : 0,
                               vertical: width > webdim ? 15 : 0),
                           child: PostCard(
                             snap: snapshot.data!.docs[index].data(),
@@ -112,7 +114,7 @@ class BlogScreen extends StatelessWidget {
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) => Container(
                     margin: EdgeInsets.symmetric(
-                        horizontal: width > webdim ? width * 0.4 : 0,
+                        horizontal: width > webdim ? width * 0.18 : 0,
                         vertical: width > webdim ? 15 : 0),
                     child: PostCard(
                       snap: snapshot.data!.docs[index].data(),
@@ -135,8 +137,8 @@ class BlogScreen extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 );
               }
-              if (snapshot.data==null  || snapshot.data!.docs.isEmpty) {
-                return const  Center(
+              if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
+                return const Center(
                   child: Text('No one has posted any blog yet!'),
                 );
               }
@@ -147,7 +149,7 @@ class BlogScreen extends StatelessWidget {
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) => Container(
                   margin: EdgeInsets.symmetric(
-                      horizontal: width > webdim ? width * 0.3 : 0,
+                      horizontal: width > webdim ? width * 0.18 : 0,
                       vertical: width > webdim ? 15 : 0),
                   child: PostCard(
                     snap: snapshot.data!.docs[index].data(),

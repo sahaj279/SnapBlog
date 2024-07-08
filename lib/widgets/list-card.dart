@@ -10,17 +10,17 @@ class ListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),
-            border: Border.all(width: 2,color: borderColor), 
-
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5), color: Colors.white
+          // border: Border.all(width: 2, color: themeWhiteColor),
           ),
-          margin:const EdgeInsets.only(bottom: 5), 
-      padding:const  EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsets.only(bottom: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: borderColor,
-            radius:32,
+            backgroundColor: themeWhiteColor,
+            radius: 32,
             child: CircleAvatar(
               backgroundImage: CachedNetworkImageProvider(snap['photourl']),
               // NetworkImage(snap['photourl']),
@@ -28,14 +28,14 @@ class ListCard extends StatelessWidget {
             ),
           ),
           Padding(
-            padding:const  EdgeInsets.only(left: 16),
+            padding: const EdgeInsets.only(left: 16),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   snap['username'],
-                  style:const  TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 // Text(
                 //   'following',
