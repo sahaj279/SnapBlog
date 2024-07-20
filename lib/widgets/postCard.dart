@@ -336,7 +336,7 @@ class _PostCardState extends State<PostCard> {
                           : (comLen == 1)
                               ? 'View comments'
                               : 'View all $comLen comments',
-                      style: const TextStyle(fontSize: 16, color: Colors.brown),
+                      style: const TextStyle(fontSize: 16, color: greyColor),
                     ),
                   ),
                 ),
@@ -346,7 +346,7 @@ class _PostCardState extends State<PostCard> {
                   child: Text(
                     DateFormat.yMMMd()
                         .format(widget.snap['datePublished'].toDate()),
-                    style: const TextStyle(fontSize: 16, color: Colors.brown),
+                    style: const TextStyle(fontSize: 16, color: greyColor),
                   ),
                 ),
               ],

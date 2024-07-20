@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:snapblog/models/user_model.dart';
 import 'package:snapblog/providers/user_provider.dart';
@@ -45,19 +46,17 @@ class _SinglePostCardState extends State<SinglePostCard> {
    Widget build(BuildContext context) {
     final User user = Provider.of<UserProvider>(context, listen: false).getUser;
     return Scaffold(
-      backgroundColor: widget.snap['postUrl']=="1"?blogBgColor:postBackgroundColor,
-      appBar: AppBar(  ),
+      backgroundColor: bgColor,
+      appBar: AppBar( backgroundColor: bgColor, ),
       body: SingleChildScrollView(
         child: Container(
-          
-          // margin:const EdgeInsets.symmetric(horizontal:15).copyWith(bottom: 17),
-          decoration: BoxDecoration(
-                // border: Border.all(color: borderColor, width: 3),
-                // borderRadius: BorderRadius.circular(10),
-                  color: 
-                    widget.snap['postUrl']=="1"?blogBgColor:postBackgroundColor,
-                
-                ),
+          margin: const EdgeInsets.symmetric(horizontal: 15).copyWith(bottom: 17),
+      decoration: BoxDecoration(
+        // border: Border.all(color: borderColor, width: 3),
+        borderRadius: BorderRadius.circular(36),
+        color:
+            widget.snap['postUrl'] == "1" ? blogBgColor : postBackgroundColor,
+      ),
           padding:
           MediaQuery.of(context).size.width>webdim?
            EdgeInsets.symmetric(
@@ -77,13 +76,12 @@ class _SinglePostCardState extends State<SinglePostCard> {
                   children: [
                     
                     CircleAvatar(
-                      radius: 19,
-                      backgroundColor: borderColor,
+                      radius: 18,
+                      backgroundColor: Colors.white,
                       child: CircleAvatar(
                         radius: 16,
                         foregroundImage:
                             CachedNetworkImageProvider(widget.snap['profileImage']),
-                        // NetworkImage(widget.snap['profileImage']),
                       ),
                     ),
                     Expanded(
@@ -175,15 +173,16 @@ class _SinglePostCardState extends State<SinglePostCard> {
                   widget.snap['postUrl'] != "1"
                       ? Container(
                         decoration: BoxDecoration(
-                          border: Border.all(width: 3,color:borderColor),
-                          borderRadius: BorderRadius.circular(5)),
+                         color: const Color(0xffE9E9EB),
+                          // border: Border.all(width: 3,color:borderColor),
+                          borderRadius: BorderRadius.circular(36)),
                         clipBehavior: Clip.antiAliasWithSaveLayer,
-                          height: MediaQuery.of(context).size.height * 0.5,
+                          // height: MediaQuery.of(context).size.height * 0.5,
                           width: double.infinity,
                           child: Image(
                             image: CachedNetworkImageProvider(
                                 widget.snap['postUrl']),
-                                fit: BoxFit.fitHeight,
+                                fit: BoxFit.contain,
                           )
                           // Image.network(
                           //   widget.snap['postUrl'],
@@ -192,12 +191,13 @@ class _SinglePostCardState extends State<SinglePostCard> {
                           )
                           //for blog posts
                       : Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 5),
                         width: MediaQuery.of(context).size.width/1.2,
-                        padding:const EdgeInsets.all(5),
+                        padding:const EdgeInsets.all(20),
                         decoration: BoxDecoration(
                           color:Colors.white,
-                          border: Border.all(width: 3,color:borderColor),
-                          borderRadius: BorderRadius.circular(5)),
+                          // border: Border.all(width: 3,color:borderColor),
+                          borderRadius: BorderRadius.circular(36)),
                         child: Text(widget.snap['description'],style:const TextStyle(fontSize: 16,fontWeight: FontWeight.w600))),
                   AnimatedOpacity(
                     duration: const Duration(milliseconds: 200),
@@ -213,7 +213,7 @@ class _SinglePostCardState extends State<SinglePostCard> {
                       },
                       child: const Icon(
                         size: 120,
-                        color: Colors.white,
+                        color: themeWhiteColor,
                         Icons.local_fire_department,
                       ),
                     ),
@@ -235,12 +235,12 @@ class _SinglePostCardState extends State<SinglePostCard> {
                       icon: widget.snap['likes'].contains(user.uid)
                           ?  Icon(
                               Icons.local_fire_department_sharp,
-                              color:widget.snap['postUrl']=="1"?Colors.pink: Colors.deepOrange,
+                              color:bottomNavButtonBackgroundColor,
                               size: 28,
                             )
                           : const Icon(
                               Icons.local_fire_department_outlined,
-                              color: borderColor,
+                              color: Colors.white,
                               size: 28,
                             ),
                       padding: const EdgeInsets.all(0),
@@ -291,8 +291,8 @@ class _SinglePostCardState extends State<SinglePostCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                        '${widget.snap['likes'].length} Likes',
-                        // style: Theme.of(context).textTheme.bodyMedium,
+                         '${widget.snap['likes'].length} Like${widget.snap['likes'].length == 1 ? "" : "s"}',
+                  // style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     widget.snap['postUrl']=="1"?Container():
                     Container(
@@ -329,10 +329,11 @@ class _SinglePostCardState extends State<SinglePostCard> {
                     InkWell(
                       onTap: () => Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => CommentsScreen(
-                                    postId: widget.snap['postId'],
-                                  ))), //to show the all comments screen
+                         CupertinoPageRoute(
+                          fullscreenDialog: true,
+                          builder: (context) => CommentsScreen(
+                                postId: widget.snap['postId'],
+                              ))), //to show the all comments screen
                       child: Container(
                         padding: const EdgeInsets.only(top: 8),
                         child: Text(
@@ -342,7 +343,7 @@ class _SinglePostCardState extends State<SinglePostCard> {
                                   ? 'View comments'
                                   : 'View all $comLen comments',
                           style:
-                              const TextStyle(fontSize: 16, color: Colors.brown),
+                              const TextStyle(fontSize: 16, color: greyColor),
                         ),
                       ),
                     ),
@@ -352,7 +353,7 @@ class _SinglePostCardState extends State<SinglePostCard> {
                       child: Text(
                         DateFormat.yMMMd()
                             .format(widget.snap['datePublished'].toDate()),
-                        style: const TextStyle(fontSize: 16, color: Colors.brown),
+                        style: const TextStyle(fontSize: 16, color: greyColor),
                       ),
                     ),
                   ],

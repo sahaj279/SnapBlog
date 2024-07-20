@@ -75,12 +75,7 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
         // backgroundColor: blogBgColor,
         body: Padding(
-          padding: MediaQuery.of(context).size.width > webdim
-              ? EdgeInsets.symmetric(
-                  vertical: 5,
-                  horizontal: MediaQuery.of(context).size.width / 3,
-                )
-              : const EdgeInsets.all(5.0),
+          padding:const EdgeInsets.all(5.0),
           child: showUsers
               ? FutureBuilder(
                   future: FirebaseFirestore.instance

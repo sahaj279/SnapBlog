@@ -74,62 +74,62 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ? const Center(
             child: CircularProgressIndicator(),
           )
-        : Scaffold(
-            backgroundColor: bgColor,
-            appBar: AppBar(
-              elevation: 0,
-              scrolledUnderElevation: 0,
-              backgroundColor: bgColor,
-              title: Text(
-                userData['username'],
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              actions: [
-                IconButton(
-                  onPressed: () => showDialog(
-                      context: context,
-                      builder: (context) => Dialog(
-                            child: ListView(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              shrinkWrap: true,
-                              children: ['Logout']
-                                  .map((e) => InkWell(
-                                        onTap: () async {
-                                          await Authentication().signOutUser();
-                                          Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      LoginScreen()));
-                                        },
-                                        child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                            vertical: 12,
-                                            horizontal: 16,
-                                          ),
-                                          child: Text(e),
-                                        ),
-                                      ))
-                                  .toList(),
-                            ),
-                          )),
-                  icon: const Icon(
-                    Icons.more_vert,
-                    color: Colors.black,
-                  ),
-                )
-              ],
-            ),
-            body: Padding(
-              padding: MediaQuery.of(context).size.width > webdim
+        : Padding(
+           padding: MediaQuery.of(context).size.width > webdim
                   ? EdgeInsets.symmetric(
                       vertical: 5,
                       horizontal: MediaQuery.of(context).size.width / 3,
                     )
                   : const EdgeInsets.all(0.0),
-              child: ListView(
+          child: Scaffold(
+              backgroundColor: bgColor,
+              appBar: AppBar(
+                elevation: 0,
+                scrolledUnderElevation: 0,
+                backgroundColor: bgColor,
+                title: Text(
+                  userData['username'],
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                actions: [
+                  IconButton(
+                    onPressed: () => showDialog(
+                        context: context,
+                        builder: (context) => Dialog(
+                              child: ListView(
+                                padding: const EdgeInsets.symmetric(vertical: 16),
+                                shrinkWrap: true,
+                                children: ['Logout']
+                                    .map((e) => InkWell(
+                                          onTap: () async {
+                                            await Authentication().signOutUser();
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        LoginScreen()));
+                                          },
+                                          child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 12,
+                                              horizontal: 16,
+                                            ),
+                                            child: Text(e),
+                                          ),
+                                        ))
+                                    .toList(),
+                              ),
+                            )),
+                    icon: const Icon(
+                      Icons.more_vert,
+                      color: Colors.black,
+                    ),
+                  )
+                ],
+              ),
+              body: ListView(
                 children: [
                   Column(
                     mainAxisSize: MainAxisSize.min,
@@ -409,6 +409,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
             ),
-          );
+        );
   }
 }

@@ -32,7 +32,7 @@ class BlogScreen extends StatelessWidget {
               actions: [
                 IconButton(
                     onPressed: () {},
-                    icon: Icon(Icons.favorite_border_outlined,
+                    icon: const Icon(Icons.favorite_border_outlined,
                         color: Colors.black))
               ],
             ),
@@ -98,7 +98,7 @@ class BlogScreen extends StatelessWidget {
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (context, index) => Container(
                           margin: EdgeInsets.symmetric(
-                              horizontal: width > webdim ? width * 0.18 : 0,
+                              horizontal: width > webdim ? width *0.3  : 0,
                               vertical: width > webdim ? 15 : 0),
                           child: PostCard(
                             snap: snapshot.data!.docs[index].data(),
@@ -112,9 +112,9 @@ class BlogScreen extends StatelessWidget {
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (context, index) => Container(
-                    margin: EdgeInsets.symmetric(
-                        horizontal: width > webdim ? width * 0.18 : 0,
+                  itemBuilder: (context, index) => Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: width > webdim ? width * 0.3: 0,
                         vertical: width > webdim ? 15 : 0),
                     child: PostCard(
                       snap: snapshot.data!.docs[index].data(),
@@ -147,9 +147,9 @@ class BlogScreen extends StatelessWidget {
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 itemCount: snapshot.data!.docs.length,
-                itemBuilder: (context, index) => Container(
-                  margin: EdgeInsets.symmetric(
-                      horizontal: width > webdim ? width * 0.18 : 0,
+                itemBuilder: (context, index) => Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: width > webdim ? width * 0.3 : 0,
                       vertical: width > webdim ? 15 : 0),
                   child: PostCard(
                     snap: snapshot.data!.docs[index].data(),

@@ -31,22 +31,19 @@ class _CommentCardState extends State<CommentCard> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 1.75,
-                child: RichText(
-                  text: TextSpan(
-                      style:const  TextStyle(color: textColor),
-                      children: [
-                        TextSpan(
-                            style:const  TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                            text: widget.snap['username']),
-                        TextSpan(
-                          text: ' ${widget.snap['comment']}',
-                        ),
-                      ]),
-                ),
+              RichText(
+                text: TextSpan(
+                    style:const  TextStyle(color: textColor),
+                    children: [
+                      TextSpan(
+                          style:const  TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                          text: widget.snap['username']),
+                      TextSpan(
+                        text: ' ${widget.snap['comment']}',
+                      ),
+                    ]),
               ),
               Padding(
                 padding:const  EdgeInsets.only(top: 4),
@@ -59,15 +56,6 @@ class _CommentCardState extends State<CommentCard> {
               )
             ],
           ),
-          // Expanded(
-          //   child: Align(
-          //     alignment: Alignment.centerRight,
-          //     child: IconButton(
-          //       onPressed: () {},
-          //       icon: Icon(Icons.favorite),
-          //     ),
-          //   ),
-          // )
         ],
       ),
     );
