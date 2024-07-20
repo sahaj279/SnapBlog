@@ -1,35 +1,59 @@
-# SnapBlog 🔥
+# [SnapBlog](https://sahaj279.github.io)
 
-A social media platform where artisans can showcase their products, connect with potential customers and get inspiration from other people's work! 
-#### • Developed a cross platform social media app specially for Indian users using android and iOS. 
-#### • Has features like adding and deleting of posts, liking them, adding comments, following users and searching them. 
-#### • Used Flutter to implement front-end with Provider for global state management.
-#### • Implemented user authentication, storage of images and user data using Firebase
+**SnapBlog** is a cross-platform application developed using Flutter for the frontend and Firebase for the backend. This app runs seamlessly on web, Android, and iOS platforms. It is designed to offer users a simple yet powerful platform to share their thoughts and images with the world.
 
-what is this?
-well people can post pics and people can like them and follow them
-now i want to commercialize it
+## Features
 
-//ill be posting my own stuff
-//seeing other's stuff
-//a personal note taking option for storing new ideas by looking at other's stuff and planning what to post next 
-//posting blogs as for some new information, its not always possible to create a post, in emergency times, it is easier to just write and post just like twitter,
+- **User Authentication**: Secure login/signup using Firebase Authentication.
+- **Post Images and Blogs**: Share single photos with captions or write and share detailed blogs.
+- **Like and Comment**: Engage with posts by liking and commenting on them.
+- **User Interaction**: Follow other users to see their posts in your feed.
+- **Profile Management**: View your own posts (both images and blogs) on your profile screen.
+- **Search Functionality**: Search for posts and users across the platform.
+- **Easy Navigation**: Intuitive bottom navigation bar to switch between different screens.
+- **Fast Loading**: Cached images for quicker load times.
 
-//ranking will be done according to number of likes in explore section
-blogs can be posted by users which won't have any photos
+## Tech Stack
 
-Hashtags: Users can add hashtags to their posts to make them more discoverable to others.
+- **Frontend**: Flutter
+- **Backend**: Firebase (Authentication, Firestore for NoSQL Database, Firebase Storage for images)
+- **Deployment**: Web app deployed on GitHub Pages
 
-Direct Messaging: Users can send direct messages to each other, privately.
+## App Screens
 
- Users can create posts with a combination of text, images, and videos
+1. **Posts Screen**: View posts from users you follow.
+2. **Blog Screen**: Read blogs shared by users.
+3. **Add Post/Blog Screen**: Create new posts or blogs to share.
+4. **Profile Screen**: Manage your profile and view your posts.
+5. **Search Screen**: Discover new users and explore their posts.
 
- Information Database: A section where users can access information and articles on various topics, similar to Wikipedia.
+## How to Run the Project
 
-Blogging Platform: A section where users can write and publish their own blog posts, which can be discovered and shared by others.
+1. **Clone the repository**:
+   ```sh
+   git clone https://github.com/sahaj279/SnapBlog.git
+   cd snapblog
 
-Notifications: Users receive notifications when someone likes or comments on their posts, or when someone they follow posts something new.
+2. **Install Dependencies**:
+   ```sh
+   flutter pub get
 
-Privacy Concerns: Privacy concerns have become a major issue in recent years, with many users feeling uneasy about how their personal information is being used by social media companies. A new platform that prioritizes user privacy and data protection could be very appealing to users.
+3. **Run the App**:
+   ```sh
+   flutter run
 
-Localized Content: Social media platforms are often global in nature, which can make it difficult for users to find content that is relevant to their local area. A new platform that focuses on localized content and community building could be very useful for users looking to connect with others in their area.
+## Deployment
+
+The web version of SnapBlog is deployed on GitHub Pages. You can access it [here](https://sahaj279.github.io).
+
+## Conclusion
+
+SnapBlog is a testament to the power of Flutter and Firebase in creating robust, cross-platform applications. The app is designed with a focus on user experience, offering a clean UI and fast loading times. Whether you're a developer looking to see the potential of Flutter or a user wanting a new platform to share your stories, SnapBlog has something to offer.
+
+---
+
+If you have any questions or need further assistance, feel free to contact me at [sahajshrivastava.official@gmail.com].
+
+Happy coding!
+
+
